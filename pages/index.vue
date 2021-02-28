@@ -215,7 +215,7 @@
         </div>
       </div>
     </section>
-    <section class="bg-white py-8">
+    <section class="bg-orange-200 py-8">
       <div class="container mx-auto flex flex-wrap pt-4 pb-12">
         <h1
           class="w-full my-2 md:text-5xl text-2xl font-bold leading-tight text-center text-gray-800"
@@ -230,23 +230,25 @@
         <div
           v-for="nurie in nuries"
           :key="nurie.id"
-          class="w-full lg:w-1/4 md:w-1/3 p-3 flex flex-col"
+          class="w-full md:w-1/3 p-3 flex flex-col"
         >
-          <article
+          <a
+            download
+            :href="nurie[0]"
             class="overflow-hidden rounded-lg shadow-lg transform transition hover:scale-105 duration-300 ease-in-out"
           >
-            <img :src="nurie" class="block h-auto w-full" alt="nurie" />
+            <img :src="nurie[0]" class="block h-auto w-full" alt="nurie" />
 
-            <div class="flex items-center p-2 md:p-4">
-              <a
+            <div class="flex items-center">
+              <div
                 download
                 :href="nurie"
-                class="mx-auto curser-pointer hover:underline bg-orange-400 text-white font-bold rounded-full my-3 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline"
+                class="text-center mx-auto bg-orange-400 text-white font-bold rounded-t py-4 w-full shadow-lg"
               >
-                保存する
-              </a>
+                {{ nurie[1] }}に投稿
+              </div>
             </div>
-          </article>
+          </a>
         </div>
       </div>
     </section>
@@ -260,7 +262,7 @@
     >
       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g transform="translate(-1.000000, -14.000000)" fill-rule="nonzero">
-          <g class="wave" fill="#fff">
+          <g class="wave" fill="#FFEBC8">
             <path
               d="M1440,84 C1383.555,64.3 1342.555,51.3 1317,45 C1259.5,30.824 1206.707,25.526 1169,22 C1129.711,18.326 1044.426,18.475 980,22 C954.25,23.409 922.25,26.742 884,32 C845.122,37.787 818.455,42.121 804,45 C776.833,50.41 728.136,61.77 713,65 C660.023,76.309 621.544,87.729 584,94 C517.525,105.104 484.525,106.438 429,108 C379.49,106.484 342.823,104.484 319,102 C278.571,97.783 231.737,88.736 205,84 C154.629,75.076 86.296,57.743 0,32 L0,0 L1440,0 L1440,84 Z"
             ></path>
@@ -298,7 +300,6 @@
 import Vue from 'vue'
 import getNurieImage from '~/assets/lib/getNurie'
 import getAllNurie from '~/assets/lib/getAllNurie'
-import toBase64 from '~/assets/lib/getBase64'
 
 export default Vue.extend({
   data() {
@@ -336,7 +337,6 @@ export default Vue.extend({
     try {
       const data = await getAllNurie('notr18')
       this.nuries = data
-      //'data:image/png;base64,' + data
     } catch (error) {
       console.error(error)
     }
@@ -360,6 +360,7 @@ export default Vue.extend({
         const data = await getNurieImage(file, this.isPublic)
         this.uploadImageUrl = 'data:image/png;base64,' + data
         this.overlay = false
+        this.nuries = await getAllNurie('notr18')
       } catch (error) {
         console.error(error)
         this.overlay = false
