@@ -15,18 +15,22 @@ export default {
         name: 'description',
         content: '塗り絵をかんたんに作れるサービスです',
       },
-      { hid: 'og:site_name', property: 'og:site_name', content: 'サイト名' },
+      {
+        hid: 'og:site_name',
+        property: 'og:site_name',
+        content: '塗り絵ツクール',
+      },
       { hid: 'og:type', property: 'og:type', content: 'website' },
       {
         hid: 'og:url',
         property: 'og:url',
         content: 'https://nurie-maker.vercel.app/',
       },
-      { hid: 'og:title', property: 'og:title', content: 'サイト名' },
+      { hid: 'og:title', property: 'og:title', content: '塗り絵ツクール' },
       {
         hid: 'og:description',
         property: 'og:description',
-        content: '共通ディスクリプション',
+        content: '塗り絵をかんたんに作れるサービスです',
       },
       {
         hid: 'og:image',
