@@ -9,17 +9,7 @@
 </template>
 <script>
 export default {
-  //   data() {
-  //     return {
-  //       meta: {
-  //         title: '塗り絵ツクール',
-  //         url: `https://nurie-maker.com/ogp/?id=${this.$route.query.id}`,
-  //         image: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${this.$route.query.id}.jpg`,
-  //       },
-  //     }
-  //   },
   head() {
-    //const title = this.meta.title
     return {
       meta: [
         { property: 'og:title', hid: 'og:title', content: '塗り絵ツクール' },
@@ -36,10 +26,5 @@ export default {
       ],
     }
   },
-  //   computed: {
-  //     url() {
-  //       return `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${this.$route.query.id}.jpg`
-  //     },
-  //   },
 }
 </script>
