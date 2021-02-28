@@ -385,6 +385,13 @@ export default Vue.extend({
       return `http://line.me/R/msg/text/?${this.fixedContent}`
     },
   },
+  head() {
+    return {
+      meta: [
+        { hid: 'og:image', property: 'og:image', content: this.nurieImageUrl },
+      ],
+    }
+  },
   async mounted() {
     try {
       const data = await getAllNurie('notr18')
