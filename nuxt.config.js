@@ -24,7 +24,7 @@ export default {
       {
         hid: 'og:url',
         property: 'og:url',
-        content: 'https://nurie-maker.vercel.app/',
+        content: 'https://nurie-maker.com',
       },
       { hid: 'og:title', property: 'og:title', content: '塗り絵ツクール' },
       {
@@ -35,7 +35,12 @@ export default {
       {
         hid: 'og:image',
         property: 'og:image',
-        content: 'https://nurie-maker.vercel.app/',
+        content: 'http://ogp-builder.com/MkU6cw/https://nurie-maker.com',
+      },
+      {
+        hid: 'twitter:card',
+        name: 'twitter:card',
+        content: 'summary_large_image',
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],

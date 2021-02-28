@@ -371,7 +371,7 @@ export default Vue.extend({
       return 36
     },
     url() {
-      return `https://nurie-maker.vercel.app${this.$route.path}`
+      return `https://nurie-maker.com`
     },
     fixedContent() {
       return encodeURIComponent(`塗り絵ツクールで塗り絵を作ったよ ${this.url}`)
