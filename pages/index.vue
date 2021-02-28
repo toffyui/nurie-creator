@@ -389,10 +389,15 @@ export default Vue.extend({
       return `https://nurie-maker.com/ogp/?id=${this.uuid}`
     },
     twitterURL() {
-      return `https://twitter.com/intent/tweet?url=${this.url}&text="塗り絵ツクールで塗り絵を作ったよ\n#塗り絵ツクール"`
+      return (
+        `https://twitter.com/intent/tweet?url=${this.url}&text=` +
+        encodeURIComponent(
+          `塗り絵ツクールで塗り絵を作ったよ\r\n #診断チャートメーカー`
+        )
+      )
     },
     facebookURL() {
-      return `https://www.facebook.com/sharer/sharer.php?u=${this.url}&t="塗り絵ツクールで塗り絵を作ったよ\n#塗り絵ツクール"`
+      return `https://www.facebook.com/sharer/sharer.php?u=${this.url}&t=塗り絵ツクールで塗り絵を作ったよ\n#塗り絵ツクール`
     },
   },
 
@@ -449,11 +454,7 @@ export default Vue.extend({
         this.overlay = false
         this.nuries = await getAllNurie('notr18')
         this.uuid = this.generateUuid()
-        // this.$store.commit('storeImage/setData', {
-        //   id: this.uuid,
-        //   imageUrl: this.nurieImageUrl,
-        // })
-        await postImageData(this.uuid, file)
+        await postImageData(this.uuid, data)
       } catch (error) {
         console.error(error)
         this.overlay = false

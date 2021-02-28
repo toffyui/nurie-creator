@@ -1,7 +1,6 @@
 require('dotenv').config()
 const { API_BASE_URL } = process.env
 export default {
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: '塗り絵ツクール',
     htmlAttrs: {
