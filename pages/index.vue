@@ -363,7 +363,6 @@ export default Vue.extend({
       overlay: false,
       file: '',
       nuries: [],
-      ogpUrl: 'http://ogp-builder.com/MkU6cw/https://nurie-maker.com',
     }
   },
   computed: {
@@ -371,13 +370,12 @@ export default Vue.extend({
       return 36
     },
     url() {
-      return `https://nurie-maker.com`
+      return `https://nurie-maker.com/?${this.nurieImageUrl}`
     },
     fixedContent() {
       return encodeURIComponent(`塗り絵ツクールで塗り絵を作ったよ ${this.url}`)
     },
     twitterURL() {
-      this.ogpUrl = this.nurieImageUrl
       return `https://twitter.com/intent/tweet?url=${this.url}&text="塗り絵ツクールで塗り絵を作ったよ"`
     },
     facebookURL() {
@@ -388,8 +386,13 @@ export default Vue.extend({
     },
   },
   head() {
+    const path = this.$route.path
+    this.url = this.base + path
     return {
-      meta: [{ hid: 'og:image', property: 'og:image', content: this.ogpUrl }],
+      meta: [
+        { hid: 'og:url', property: 'og:url', content: this.url },
+        { hid: 'og:image', property: 'og:image', content: this.nurieImageUrl },
+      ],
     }
   },
   async mounted() {
