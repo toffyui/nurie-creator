@@ -354,7 +354,6 @@
 import Vue from 'vue'
 import getNurieImage from '~/assets/lib/getNurie'
 import getAllNurie from '~/assets/lib/getAllNurie'
-
 export default Vue.extend({
   data() {
     return {
@@ -363,6 +362,8 @@ export default Vue.extend({
       overlay: false,
       file: '',
       nuries: [],
+      uuid: '',
+      path: '',
     }
   },
   computed: {
@@ -370,26 +371,28 @@ export default Vue.extend({
       return 36
     },
     url() {
-      return `https://nurie-maker.com/?${this.nurieImageUrl}`
-    },
-    fixedContent() {
-      return encodeURIComponent(`塗り絵ツクールで塗り絵を作ったよ ${this.url}`)
+      this.path = this.$store.state.storeImage.list.find(
+        (a) => a.id === this.uuid
+      )
+      this.path = this.path ? this.path.id : ''
+      return `https://nurie-maker.com/ogp/?id=${this.path}`
     },
     twitterURL() {
-      return `https://twitter.com/intent/tweet?url=${this.url}&text="塗り絵ツクールで塗り絵を作ったよ"`
+      return `https://twitter.com/intent/tweet?url=${this.url}&text="塗り絵ツクールで塗り絵を作ったよ\n#塗り絵ツクール"`
     },
     facebookURL() {
-      return `https://www.facebook.com/sharer/sharer.php?u=${this.url}&t="塗り絵ツクールで塗り絵を作ったよ"`
-    },
-    lineURL() {
-      return `http://line.me/R/msg/text/?${this.fixedContent}`
+      return `https://www.facebook.com/sharer/sharer.php?u=${this.url}&t="塗り絵ツクールで塗り絵を作ったよ\n#塗り絵ツクール"`
     },
   },
   head() {
     return {
       meta: [
-        { hid: 'og:url', property: 'og:url', content: this.url },
-        { hid: 'og:image', property: 'og:image', content: this.nurieImageUrl },
+        { hid: 'og:url', property: 'og:url', content: this.nurieImageUrl },
+        {
+          hid: 'og:image',
+          property: 'og:image',
+          content: `http://ogp-builder.com/MkU6cw/${this.url}`,
+        },
       ],
     }
   },
@@ -423,6 +426,20 @@ export default Vue.extend({
     getNuriePublic() {
       this.getResult(this.file, 'True')
     },
+    generateUuid() {
+      let chars = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.split('')
+      for (let i = 0, len = chars.length; i < len; i++) {
+        switch (chars[i]) {
+          case 'x':
+            chars[i] = Math.floor(Math.random() * 16).toString(16)
+            break
+          case 'y':
+            chars[i] = (Math.floor(Math.random() * 4) + 8).toString(16)
+            break
+        }
+      }
+      return chars.join('')
+    },
     async getResult(file, isPublic) {
       this.overlay = true
       try {
@@ -431,6 +448,11 @@ export default Vue.extend({
         this.uploadImageUrl = ''
         this.overlay = false
         this.nuries = await getAllNurie('notr18')
+        this.uuid = this.generateUuid()
+        this.$store.commit('storeImage/setData', {
+          id: this.uuid,
+          imageUrl: this.nurieImageUrl,
+        })
       } catch (error) {
         console.error(error)
         this.overlay = false
