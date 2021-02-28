@@ -387,11 +387,11 @@ export default Vue.extend({
   head() {
     return {
       meta: [
-        { hid: 'og:url', property: 'og:url', content: this.nurieImageUrl },
+        { hid: 'og:url', property: 'og:url', content: this.url },
         {
           hid: 'og:image',
           property: 'og:image',
-          content: `http://ogp-builder.com/MkU6cw/${this.url}`,
+          content: this.nurieImageUrl,
         },
       ],
     }
