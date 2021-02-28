@@ -386,8 +386,6 @@ export default Vue.extend({
     },
   },
   head() {
-    const path = this.$route.path
-    this.url = this.base + path
     return {
       meta: [
         { hid: 'og:url', property: 'og:url', content: this.url },
