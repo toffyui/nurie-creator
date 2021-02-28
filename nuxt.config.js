@@ -35,10 +35,13 @@ export default {
       {
         hid: 'og:image',
         property: 'og:image',
-        content:
-          'https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/c5ed6cf7-49f8-47f5-9009-975336f77e86.jpg',
+        content: 'http://ogp-builder.com/MkU6cw/https://nurie-maker.com',
       },
       { name: 'twitter:card', content: 'summary_large_image' },
+      {
+        name: 'twitter:image',
+        content: 'http://ogp-builder.com/MkU6cw/https://nurie-maker.com',
+      },
       { name: 'twitter:site', content: '@yui_active' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],

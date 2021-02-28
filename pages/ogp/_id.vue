@@ -8,22 +8,18 @@
   </div>
 </template>
 <script>
+import Meta from '~/assets/mixins/meta'
 export default {
-  head() {
+  mixins: [Meta],
+  data() {
     return {
-      meta: [
-        { property: 'og:title', hid: 'og:title', content: '塗り絵ツクール' },
-        {
-          hid: 'og:url',
-          property: 'og:url',
-          content: `https://nurie-maker.com/ogp/?id=${this.$route.query.id}`,
-        },
-        {
-          hid: 'og:image',
-          property: 'og:image',
-          content: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${this.$route.query.id}.jpg`,
-        },
-      ],
+      meta: {
+        title: '塗り絵ツクール',
+        description: '塗り絵ツクールで塗り絵を作ろう',
+        type: 'article',
+        url: `https://nurie-maker.com/ogp/?id=${this.$route.query.id}`,
+        image: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${this.$route.query.id}.jpg`,
+      },
     }
   },
 }
