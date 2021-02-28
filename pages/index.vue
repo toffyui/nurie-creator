@@ -392,7 +392,7 @@ export default Vue.extend({
       return (
         `https://twitter.com/intent/tweet?url=${this.url}&text=` +
         encodeURIComponent(
-          `塗り絵ツクールで塗り絵を作ったよ\r\n #診断チャートメーカー`
+          `塗り絵ツクールで塗り絵を作ったよ\r\n #塗り絵ツクール`
         )
       )
     },
