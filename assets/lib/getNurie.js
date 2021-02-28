@@ -11,7 +11,6 @@ const toBase64 = (file) =>
 
 export default async function getNurieImage(file, flag) {
   let imageBase64 = null
-  const flagString = flag ? 'True' : 'False'
   try {
     imageBase64 = await toBase64(file)
     imageBase64 = imageBase64.replace(/^data:image\/[a-z]+;base64,/, '')
@@ -22,7 +21,7 @@ export default async function getNurieImage(file, flag) {
   try {
     const response = await axios.post(
       apiUrl,
-      { mypng: imageBase64, saveflag: flagString },
+      { mypng: imageBase64, saveflag: flag },
       {
         headers: {
           'Content-Type': 'application/json',

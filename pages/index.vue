@@ -88,13 +88,13 @@
           ></div>
         </div>
         <div class="flex flex-wrap">
-          <div class="w-5/6 sm:w-1/2 p-6 mx-auto">
+          <div class="w-full sm:w-1/2 p-6 mx-auto">
             <h3
               class="md:text-3xl text-lg text-gray-800 font-bold leading-none mb-3"
             >
               ライブラリから画像を選択
             </h3>
-            <p class="text-gray-600 mb-8 text-base">
+            <p class="text-gray-600 mb-3 text-base">
               できる限り輪郭がはっきりしている画像を選んでください。
             </p>
             <label
@@ -120,29 +120,73 @@
                 @change="setImage"
               />
             </label>
-            <div class="mt-5">
-              <label class="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  class="form-checkbox h-4 w-4 text-orange-400"
-                  @change="isPublicChange"
-                />
-                <span class="ml-2 text-gray-800">できた塗り絵を公開する</span>
-              </label>
-              <p class="text-gray-600 mb-8 text-base">
-                *チェックを入れるとできた塗り絵が自動で公開されます。<br />
-                <strong>画像アップロード前</strong>にチェックしてください。
-              </p>
-            </div>
             <h3
-              class="md:text-3xl text-lg text-gray-800 font-bold leading-none mb-3"
+              class="md:text-3xl text-lg text-gray-800 font-bold leading-none mt-6 mb-3"
             >
-              画像を保存/シェア
+              塗り絵に変換
             </h3>
-            <p v-if="!uploadImageUrl" class="text-gray-600 md:mb-8 text-base">
+            <p class="mt-3 text-gray-600 text-base mb-3" v-if="!uploadImageUrl">
               先に画像を選択してください
             </p>
-            <ul v-if="uploadImageUrl" class="flex space-x-6 mt-5">
+            <div class="mt-3" v-if="uploadImageUrl">
+              <p class="mt-3 text-gray-600 text-base mb-3">
+                塗り絵に変換して公開するを選ぶと、できた塗り絵が自動で公開されます。
+              </p>
+              <label
+                class="cursor-pointer inline-flex items-center bg-white boder-solid border-2 border-orange-600 hover:border-orange-500 text-white font-bold py-2 px-4 rounded-full"
+              >
+                <svg
+                  class="w-8 h-8"
+                  fill="#DD6B1F"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <div
+                  class="text-orange-600 ml-2 text-base leading-normal"
+                  @click="getNurie"
+                >
+                  塗り絵にする
+                </div>
+              </label>
+              <label
+                class="cursor-pointer lg:m-0 mt-3 inline-flex items-center boder-solid border-2 border-orange-600 bg-orange-600 hover:bg-orange-500 hover:border-orange-500 text-white font-bold py-2 px-4 rounded-full"
+              >
+                <svg
+                  class="w-8 h-8"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.234-.497.623-.737 1.182-.389.907-.673 2.142-.766 3.556h3.936c-.093-1.414-.377-2.649-.766-3.556-.24-.56-.5-.948-.737-1.182C10.232 4.032 10.076 4 10 4zm3.971 5c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9h-1.946zm-2.003 2H8.032c.093 1.414.377 2.649.766 3.556.24.56.5.948.737 1.182.233.23.389.262.465.262.076 0 .232-.032.465-.262.238-.234.498-.623.737-1.182.389-.907.673-2.142.766-3.556zm1.166 4.118c.454-1.147.748-2.572.837-4.118h1.946a6.004 6.004 0 01-2.783 4.118zm-6.268 0C6.412 13.97 6.118 12.546 6.03 11H4.083a6.004 6.004 0 002.783 4.118z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <div
+                  class="ml-2 text-base leading-normal"
+                  @click="getNuriePublic"
+                >
+                  塗り絵に変換して公開する
+                </div>
+              </label>
+            </div>
+
+            <h3
+              class="md:text-3xl text-lg text-gray-800 font-bold leading-none mt-6 mb-3"
+            >
+              画像をシェア/保存
+            </h3>
+            <p v-if="!nurieImageUrl" class="text-gray-600 md:mb-8 text-base">
+              先に塗り絵を作成してください
+            </p>
+            <ul v-if="nurieImageUrl" class="flex space-x-6 mt-3">
               <li>
                 <a :href="twitterURL" target="_blank" rel="nofollow">
                   <img
@@ -164,7 +208,7 @@
                 </a>
               </li>
               <li>
-                <a :href="uploadImageUrl" download>
+                <a :href="nurieImageUrl" download>
                   <img
                     alt="line"
                     src="../assets/img/download.svg"
@@ -177,17 +221,23 @@
           </div>
           <div class="w-full mt-3 sm:w-1/2 relative">
             <img
-              v-if="!uploadImageUrl"
+              v-if="!uploadImageUrl && !nurieImageUrl"
               src="../assets/img/defaultPic.png"
               alt="default"
               class="border-dashed border-4 border-gray-600"
-              :class="{ 'opacity-50': overlay }"
             />
             <img
               v-if="uploadImageUrl"
               class="border-dashed border-4 border-gray-600"
               width="100%"
+              :class="{ 'opacity-50': overlay }"
               :src="uploadImageUrl"
+            />
+            <img
+              v-if="nurieImageUrl"
+              class="border-dashed border-4 border-gray-600"
+              width="100%"
+              :src="nurieImageUrl"
             />
             <div v-if="overlay" class="absolute overlay">
               <svg
@@ -237,7 +287,11 @@
             :href="nurie[0]"
             class="overflow-hidden rounded-lg shadow-lg transform transition hover:scale-105 duration-300 ease-in-out"
           >
-            <img :src="nurie[0]" class="block h-auto w-full" alt="nurie" />
+            <img
+              :src="nurie[0]"
+              class="imageClass block w-full h-auto object-cover"
+              alt="nurie"
+            />
 
             <div class="flex items-center">
               <div
@@ -304,10 +358,10 @@ import getAllNurie from '~/assets/lib/getAllNurie'
 export default Vue.extend({
   data() {
     return {
+      nurieImageUrl: '',
       uploadImageUrl: '',
-      base64data: '',
-      isPublic: false,
       overlay: false,
+      file: '',
       nuries: [],
     }
   },
@@ -343,22 +397,32 @@ export default Vue.extend({
   },
   methods: {
     setImage(e) {
-      const file = e.target.files[0]
+      this.file = e.target.files[0]
+      this.nurieImageUrl = ''
       const reader = new FileReader()
-      this.getResult(file)
-      reader.readAsDataURL(file)
+      reader.addEventListener('load', () => {
+        this.uploadImageUrl = reader.result
+      })
+      reader.readAsDataURL(this.file)
     },
     isPublicChange() {
       this.isPublic = !this.isPublic
-      if (this.uploadImageUrl) {
-        this.uploadImageUrl = ''
+      if (this.nurieImageUrl) {
+        this.nurieImageUrl = ''
       }
     },
-    async getResult(file) {
+    getNurie() {
+      this.getResult(this.file, 'False')
+    },
+    getNuriePublic() {
+      this.getResult(this.file, 'True')
+    },
+    async getResult(file, isPublic) {
       this.overlay = true
       try {
-        const data = await getNurieImage(file, this.isPublic)
-        this.uploadImageUrl = 'data:image/png;base64,' + data
+        const data = await getNurieImage(file, isPublic)
+        this.nurieImageUrl = 'data:image/png;base64,' + data
+        this.uploadImageUrl = ''
         this.overlay = false
         this.nuries = await getAllNurie('notr18')
       } catch (error) {
@@ -380,5 +444,8 @@ export default Vue.extend({
   transform: translateY(-50%) translateX(-50%);
   -webkit-transform: translateY(-50%) translateX(-50%);
   margin: auto;
+}
+.imageClass {
+  height: 350px;
 }
 </style>

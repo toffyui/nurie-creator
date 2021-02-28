@@ -3,9 +3,9 @@ const { API_BASE_URL } = process.env
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'real2anime',
+    title: '塗り絵ツクール',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'ja',
     },
     meta: [
       { charset: 'utf-8' },
@@ -13,7 +13,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: '共通ディスクリプション',
+        content: '塗り絵をかんたんに作れるサービスです',
       },
       { hid: 'og:site_name', property: 'og:site_name', content: 'サイト名' },
       { hid: 'og:type', property: 'og:type', content: 'website' },
