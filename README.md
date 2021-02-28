@@ -1,4 +1,4 @@
-# real2anime
+# 塗り絵ツクール
 
 ## Build Setup
 
@@ -7,6 +7,7 @@
 $ yarn install
 
 # serve with hot reload at localhost:3000
+※.envにAPIのエンドポイントが必要です（非公開）
 $ yarn dev
 
 # build for production and launch server
