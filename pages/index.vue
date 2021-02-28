@@ -370,12 +370,10 @@ export default Vue.extend({
       return 36
     },
     url() {
-      return `https://hoge.com${this.$route.path}`
+      return `https://nurie-maker.vercel.app${this.$route.path}`
     },
     fixedContent() {
-      return encodeURIComponent(
-        `"塗り絵ツクールで塗り絵を作ったよ" ${this.url}`
-      )
+      return encodeURIComponent(`塗り絵ツクールで塗り絵を作ったよ ${this.url}`)
     },
     twitterURL() {
       return `https://twitter.com/intent/tweet?url=${this.url}&text="塗り絵ツクールで塗り絵を作ったよ"`

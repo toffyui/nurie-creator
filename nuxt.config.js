@@ -17,7 +17,11 @@ export default {
       },
       { hid: 'og:site_name', property: 'og:site_name', content: 'サイト名' },
       { hid: 'og:type', property: 'og:type', content: 'website' },
-      { hid: 'og:url', property: 'og:url', content: 'https://example.com' },
+      {
+        hid: 'og:url',
+        property: 'og:url',
+        content: 'https://nurie-maker.vercel.app/',
+      },
       { hid: 'og:title', property: 'og:title', content: 'サイト名' },
       {
         hid: 'og:description',
@@ -27,7 +31,7 @@ export default {
       {
         hid: 'og:image',
         property: 'og:image',
-        content: 'https://example.com/img/ogp/common.jpg',
+        content: 'https://nurie-maker.vercel.app/',
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
