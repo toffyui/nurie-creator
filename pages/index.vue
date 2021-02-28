@@ -125,8 +125,14 @@
             >
               塗り絵に変換
             </h3>
-            <p class="mt-3 text-gray-600 text-base mb-3" v-if="!uploadImageUrl">
+            <p
+              class="mt-3 text-gray-600 text-base mb-3"
+              v-if="!uploadImageUrl && !nurieImageUrl"
+            >
               先に画像を選択してください
+            </p>
+            <p class="mt-3 text-gray-600 text-base mb-3" v-if="nurieImageUrl">
+              塗り絵が作成されました！
             </p>
             <div class="mt-3" v-if="uploadImageUrl">
               <p class="mt-3 text-gray-600 text-base mb-3">
@@ -342,7 +348,15 @@
         </g>
       </g>
     </svg>
-    <section class="container mx-auto text-center py-6">
+    <section
+      class="md:flex md:justify-between container mx-auto py-3 md:py-6 px-5 md:px-20"
+    >
+      <div class="my-4 text-base leading-tight">
+        <a href="https://twitter.com/yui_active" class="underline"
+          ><strong>Yui</strong></a
+        >
+        All Rights Reserved.
+      </div>
       <div class="my-4 text-base leading-tight">
         {{ new Date().getFullYear() }} — <strong>© 塗り絵ツクール</strong>
       </div>
@@ -354,6 +368,7 @@
 import Vue from 'vue'
 import getNurieImage from '~/assets/lib/getNurie'
 import getAllNurie from '~/assets/lib/getAllNurie'
+import postImageData from '~/assets/lib/postImageData'
 export default Vue.extend({
   data() {
     return {
@@ -371,11 +386,7 @@ export default Vue.extend({
       return 36
     },
     url() {
-      this.path = this.$store.state.storeImage.list.find(
-        (a) => a.id === this.uuid
-      )
-      this.path = this.path ? this.path.id : ''
-      return `https://nurie-maker.com/ogp/?id=${this.path}`
+      return `https://nurie-maker.com/ogp/?id=${this.uuid}`
     },
     twitterURL() {
       return `https://twitter.com/intent/tweet?url=${this.url}&text="塗り絵ツクールで塗り絵を作ったよ\n#塗り絵ツクール"`
@@ -384,18 +395,7 @@ export default Vue.extend({
       return `https://www.facebook.com/sharer/sharer.php?u=${this.url}&t="塗り絵ツクールで塗り絵を作ったよ\n#塗り絵ツクール"`
     },
   },
-  head() {
-    return {
-      meta: [
-        { hid: 'og:url', property: 'og:url', content: this.url },
-        {
-          hid: 'og:image',
-          property: 'og:image',
-          content: this.nurieImageUrl,
-        },
-      ],
-    }
-  },
+
   async mounted() {
     try {
       const data = await getAllNurie('notr18')
@@ -449,10 +449,11 @@ export default Vue.extend({
         this.overlay = false
         this.nuries = await getAllNurie('notr18')
         this.uuid = this.generateUuid()
-        this.$store.commit('storeImage/setData', {
-          id: this.uuid,
-          imageUrl: this.nurieImageUrl,
-        })
+        // this.$store.commit('storeImage/setData', {
+        //   id: this.uuid,
+        //   imageUrl: this.nurieImageUrl,
+        // })
+        await postImageData(this.uuid, file)
       } catch (error) {
         console.error(error)
         this.overlay = false
