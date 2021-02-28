@@ -5,6 +5,7 @@ export default {
     title: '塗り絵ツクール',
     htmlAttrs: {
       lang: 'ja',
+      prefix: 'og: http://ogp.me/ns#',
     },
     meta: [
       { charset: 'utf-8' },
@@ -19,7 +20,7 @@ export default {
         property: 'og:site_name',
         content: '塗り絵ツクール',
       },
-      { hid: 'og:type', property: 'og:type', content: 'website' },
+      { hid: 'og:type', property: 'og:type', content: 'article' },
       {
         hid: 'og:url',
         property: 'og:url',
@@ -36,11 +37,8 @@ export default {
         property: 'og:image',
         content: 'http://ogp-builder.com/MkU6cw/https://nurie-maker.com',
       },
-      {
-        hid: 'twitter:card',
-        name: 'twitter:card',
-        content: 'summary_large_image',
-      },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:site', content: '@yui_active' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
