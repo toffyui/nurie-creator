@@ -450,6 +450,7 @@ export default Vue.extend({
       twitterModalFlag: false,
       FBModalFlag: false,
       nurieData: '',
+      isFetched: false,
     }
   },
   computed: {
@@ -482,15 +483,20 @@ export default Vue.extend({
   },
   methods: {
     tweetButton() {
-      window.open(this.twitterURL, '_blank')
+      if (this.isFetched) {
+        window.open(this.twitterURL, '_blank')
+      }
     },
     FBButton() {
-      window.open(this.facebookURL, '_blank')
+      if (this.isFetched) {
+        window.open(this.facebookURL, '_blank')
+      }
     },
     async OpenTwitterModal() {
       this.twitterModalFlag = true
       this.uuid = this.generateUuid()
       await postImageData(this.uuid, this.nurieData).then(() => {
+        this.isFetched = true
         window.history.pushState(null, null, `/ogp/?id=${this.uuid}`)
       })
     },
@@ -498,12 +504,14 @@ export default Vue.extend({
       this.FBModalFlag = true
       this.uuid = this.generateUuid()
       await postImageData(this.uuid, this.nurieData).then(() => {
+        this.isFetched = true
         window.history.pushState(null, null, `/ogp/?id=${this.uuid}`)
       })
     },
     CloseModal() {
       this.twitterModalFlag = false
       this.FBModalFlag = false
+      this.isFetched = false
       window.history.pushState(null, null, '/')
     },
     setImage(e) {

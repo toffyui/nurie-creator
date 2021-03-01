@@ -24,8 +24,8 @@ export default {
       },
     }
   },
-  mounted() {
-    window.location.href = '/'
-  },
+  //   mounted() {
+  //     window.location.href = '/'
+  //   },
 }
 </script>
