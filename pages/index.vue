@@ -84,7 +84,7 @@
         </h1>
         <div class="w-full mb-4">
           <div
-            class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"
+            class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded"
           ></div>
         </div>
         <div class="flex flex-wrap">
@@ -194,24 +194,24 @@
             </p>
             <ul v-if="nurieImageUrl" class="flex space-x-6 mt-3">
               <li>
-                <a :href="twitterURL" target="_blank" rel="nofollow">
+                <div @click="OpenTwitterModal" class="cursor-pointer">
                   <img
                     alt="twitter"
                     src="../assets/img/twitter.svg"
                     :width="size"
                     :height="size"
                   />
-                </a>
+                </div>
               </li>
               <li>
-                <a :href="facebookURL" target="_blank" rel="nofollow">
+                <div @click="OpenFBModal" class="cursor-pointer">
                   <img
-                    alt="facebook"
+                    alt="twitter"
                     src="../assets/img/facebook.svg"
                     :width="size"
                     :height="size"
                   />
-                </a>
+                </div>
               </li>
               <li>
                 <a :href="nurieImageUrl" download>
@@ -269,6 +269,70 @@
             </div>
           </div>
         </div>
+        <Modal v-if="twitterModalFlag">
+          <div>
+            <img
+              v-if="nurieImageUrl"
+              class="border-dashed border-4 mt-3 border-gray-600 mx-auto modalImageClass block w-full h-auto object-cover"
+              :src="nurieImageUrl"
+            />
+            <div
+              @click="CloseModal"
+              class="absolute cursor-pointer top-0 right-0"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                class="w-8 h-8"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <button
+              @click="tweetButton"
+              class="text-center mx-auto bg-orange-400 text-white font-bold rounded-b py-4 w-full shadow-lg"
+            >
+              ツイートする
+            </button>
+          </div>
+        </Modal>
+        <Modal v-if="FBModalFlag">
+          <div>
+            <img
+              v-if="nurieImageUrl"
+              class="border-dashed border-4 mt-3 border-gray-600 mx-auto modalImageClass block w-full h-auto object-cover"
+              :src="nurieImageUrl"
+            />
+            <div
+              @click="CloseModal"
+              class="absolute cursor-pointer top-0 right-0"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                class="w-8 h-8"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <button
+              @click="tweetButton"
+              class="text-center mx-auto bg-orange-400 text-white font-bold rounded-b py-4 w-full shadow-lg"
+            >
+              シェアする
+            </button>
+          </div>
+        </Modal>
       </div>
     </section>
     <section class="bg-orange-200 py-8">
@@ -280,7 +344,7 @@
         </h1>
         <div class="w-full mb-4">
           <div
-            class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"
+            class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-b"
           ></div>
         </div>
         <div
@@ -303,7 +367,7 @@
               <div
                 download
                 :href="nurie"
-                class="text-center mx-auto bg-orange-400 text-white font-bold rounded-t py-4 w-full shadow-lg"
+                class="text-center mx-auto bg-orange-400 text-white font-bold rounded-b py-4 w-full shadow-lg"
               >
                 {{ nurie[1] }}に投稿
               </div>
@@ -369,7 +433,11 @@ import Vue from 'vue'
 import getNurieImage from '~/assets/lib/getNurie'
 import getAllNurie from '~/assets/lib/getAllNurie'
 import postImageData from '~/assets/lib/postImageData'
+import Modal from '~/components/Share.vue'
 export default Vue.extend({
+  components: {
+    Modal,
+  },
   data() {
     return {
       nurieImageUrl: '',
@@ -379,6 +447,9 @@ export default Vue.extend({
       nuries: [],
       uuid: '',
       path: '',
+      twitterModalFlag: false,
+      FBModalFlag: false,
+      nurieData: '',
     }
   },
   computed: {
@@ -410,6 +481,31 @@ export default Vue.extend({
     }
   },
   methods: {
+    tweetButton() {
+      window.open(this.twitterURL, '_blank')
+    },
+    FBButton() {
+      window.open(this.facebookURL, '_blank')
+    },
+    async OpenTwitterModal() {
+      this.twitterModalFlag = true
+      this.uuid = this.generateUuid()
+      await postImageData(this.uuid, this.nurieData).then(() => {
+        window.history.pushState(null, null, `/ogp/?id=${this.uuid}`)
+      })
+    },
+    async OpenFBModal() {
+      this.FBModalFlag = true
+      this.uuid = this.generateUuid()
+      await postImageData(this.uuid, this.nurieData).then(() => {
+        window.history.pushState(null, null, `/ogp/?id=${this.uuid}`)
+      })
+    },
+    CloseModal() {
+      this.twitterModalFlag = false
+      this.FBModalFlag = false
+      window.history.pushState(null, null, '/')
+    },
     setImage(e) {
       this.file = e.target.files[0]
       this.nurieImageUrl = ''
@@ -448,13 +544,11 @@ export default Vue.extend({
     async getResult(file, isPublic) {
       this.overlay = true
       try {
-        const data = await getNurieImage(file, isPublic)
-        this.nurieImageUrl = 'data:image/png;base64,' + data
+        this.nurieData = await getNurieImage(file, isPublic)
+        this.nurieImageUrl = 'data:image/png;base64,' + this.nurieData
         this.uploadImageUrl = ''
         this.overlay = false
         this.nuries = await getAllNurie('notr18')
-        this.uuid = this.generateUuid()
-        await postImageData(this.uuid, data)
       } catch (error) {
         console.error(error)
         this.overlay = false
@@ -477,5 +571,8 @@ export default Vue.extend({
 }
 .imageClass {
   height: 350px;
+}
+.modalImageClass {
+  max-height: 350px;
 }
 </style>
