@@ -8,24 +8,46 @@
   </div>
 </template>
 <script>
-import Meta from '~/assets/mixins/meta'
-
 export default {
-  mixins: [Meta],
-  data() {
+  async asyncData($route) {
     return {
-      meta: {
-        title: '塗り絵ツクール',
-        description: 'オリジナル塗り絵を作ろう',
-        type: 'article',
-        url: `https://nurie-maker.com/ogp/?id=${this.$route.query.id}`,
-        image: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${this.$route.query.id}.jpg`,
-        twitterImage: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${this.$route.query.id}.jpg`,
-      },
+      url: `https://nurie-maker.com/ogp/?id=${$route.query.id}`,
+      image: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${$route.query.id}.jpg`,
+      twitterImage: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${$route.query.id}.jpg`,
     }
   },
-  //   mounted() {
-  //     window.location.href = '/'
-  //   },
+  head() {
+    return {
+      title: 'オリジナル塗り絵を作ろう',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'オリジナル塗り絵を作ろう',
+        },
+        { hid: 'og:type', property: 'og:type', content: 'article' },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: '塗り絵ツクール',
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: 'オリジナル塗り絵を作ろう',
+        },
+        { hid: 'og:url', property: 'og:url', content: this.url },
+        { hid: 'og:image', property: 'og:image', content: this.image },
+        {
+          name: 'twitter:image',
+          content: this.twitterImage,
+        },
+      ],
+    }
+  },
+
+  mounted() {
+    window.location.href = '/'
+  },
 }
 </script>
