@@ -71,6 +71,8 @@ export default {
   },
   mode: 'universal',
 
+  target: 'static',
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
