@@ -43,7 +43,7 @@ export default {
   },
 
   mounted() {
-    window.location.href = '/'
+    // window.location.href = '/'
   },
 }
 </script>
