@@ -16,10 +16,6 @@
       "headers": { "Cache-Control": "public, max-age=31536000" }
     },
     {
-      "src": "/favicon.ico",
-      "dest": "/favicon.ico"
-    },
-    {
       "src": "/sw.js",
       "dest": "/_nuxt/static/sw.js",
       "headers": {
