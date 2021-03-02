@@ -1,19 +1,15 @@
 <template>
   <div>
-    <img
-      class="mx-auto"
-      :src="`https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${this.$route.query.id}.jpg`"
-      alt
-    />
+    <img class="mx-auto" :src="image" alt />
   </div>
 </template>
 <script>
 export default {
-  async asyncData($route) {
+  async asyncData({ params }) {
     return {
-      url: `https://nurie-maker.com/ogp/?id=${$route.query.id}`,
-      image: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${$route.query.id}.jpg`,
-      twitterImage: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${$route.query.id}.jpg`,
+      url: `https://nurie-maker.com/ogp/${params.id}`,
+      image: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${params.id}.jpg`,
+      twitterImage: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${params.id}.jpg`,
     }
   },
   head() {
@@ -47,7 +43,7 @@ export default {
   },
 
   mounted() {
-    window.location.href = '/'
+    // window.location.href = '/'
   },
 }
 </script>
