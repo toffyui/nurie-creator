@@ -45,7 +45,7 @@ export default {
       { name: 'twitter:site', content: '@yui_active' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon-32x32.png' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'apple-touch-icon',
         sizes: '180x180',
@@ -62,10 +62,6 @@ export default {
         type: 'image/png',
         sizes: '16x16',
         href: '/favicon-16x16.png',
-      },
-      {
-        rel: 'manifest',
-        href: '/site.webmanifest',
       },
     ],
   },
