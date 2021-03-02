@@ -11,7 +11,7 @@
 export default {
   async asyncData($route) {
     return {
-      url: `https://nurie-maker.com/ogp/?id=${$route.query.id}`,
+      url: `https://nurie-maker.com/ogp/${$route.query.id}`,
       image: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${$route.query.id}.jpg`,
       twitterImage: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${$route.query.id}.jpg`,
     }
@@ -47,7 +47,7 @@ export default {
   },
 
   mounted() {
-    window.location.href = '/'
+    // window.location.href = '/'
   },
 }
 </script>
