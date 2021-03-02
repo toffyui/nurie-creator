@@ -45,7 +45,11 @@ export default {
       { name: 'twitter:site', content: '@yui_active' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '~/assets/img/favicon.ico' },
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: 'https://yuilog.xyz/wp-content/uploads/2021/03/favicon-32x32.png',
+      },
     ],
   },
 
