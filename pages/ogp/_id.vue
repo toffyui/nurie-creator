@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!-- {{ this.image }} -->
-    {{ image }}
     <img class="mx-auto" :src="image" alt />
   </div>
 </template>
