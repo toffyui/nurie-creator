@@ -45,7 +45,7 @@ export default {
       { name: 'twitter:site', content: '@yui_active' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon-32x32.png' },
       {
         rel: 'apple-touch-icon',
         sizes: '180x180',
