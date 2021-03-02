@@ -41,9 +41,8 @@ export default {
       ],
     }
   },
-
-  mounted() {
-    // window.location.href = '/'
+  created() {
+    this.$router.push('/')
   },
 }
 </script>
