@@ -505,7 +505,7 @@ export default Vue.extend({
       this.uuid = this.generateUuid()
       await postImageData(this.uuid, this.nurieData).then(() => {
         this.isFetched = true
-        window.history.pushState(null, null, `/ogp/?id=${this.uuid}`)
+        window.history.pushState(null, null, `/ogp/${this.uuid}`)
       })
     },
     CloseModal() {
