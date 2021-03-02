@@ -65,7 +65,6 @@ export default {
       },
     ],
   },
-  mode: 'universal',
 
   target: 'static',
 
