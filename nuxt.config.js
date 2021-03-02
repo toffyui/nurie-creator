@@ -83,9 +83,6 @@ export default {
   env: {
     API_BASE_URL,
   },
-  static: {
-    prefix: false,
-  },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
