@@ -64,7 +64,8 @@ export default {
     }
   },
   created() {
-    this.$router.push(`/nurie/${this.uuid}`)
+    //this.$router.push(`/nurie/${this.uuid}`)
+    this.$router.push('/')
   },
 }
 </script>
