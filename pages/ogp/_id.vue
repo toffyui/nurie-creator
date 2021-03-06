@@ -28,6 +28,7 @@
 export default {
   async asyncData({ params }) {
     return {
+      uuid: params.id,
       url: `https://nurie-maker.com/ogp/${params.id}`,
       image: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${params.id}.jpg`,
       twitterImage: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${params.id}.jpg`,
@@ -63,7 +64,7 @@ export default {
     }
   },
   created() {
-    this.$router.push('/')
+    this.$router.push(`/nurie/${this.uuid}`)
   },
 }
 </script>

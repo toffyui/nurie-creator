@@ -458,7 +458,7 @@ export default Vue.extend({
       return 36
     },
     url() {
-      return `https://nurie-maker.com/ogp/${this.uuid}`
+      return `https://nurie-maker.com/nurie/${this.uuid}`
     },
     twitterURL() {
       return (
@@ -497,7 +497,7 @@ export default Vue.extend({
       this.uuid = this.generateUuid()
       await postImageData(this.uuid, this.nurieData).then(() => {
         this.isFetched = true
-        window.history.pushState(null, null, `/ogp/${this.uuid}`)
+        window.history.pushState(null, null, `/nurie/${this.uuid}`)
       })
     },
     async OpenFBModal() {
@@ -505,7 +505,7 @@ export default Vue.extend({
       this.uuid = this.generateUuid()
       await postImageData(this.uuid, this.nurieData).then(() => {
         this.isFetched = true
-        window.history.pushState(null, null, `/ogp/${this.uuid}`)
+        window.history.pushState(null, null, `/nurie/${this.uuid}`)
       })
     },
     CloseModal() {

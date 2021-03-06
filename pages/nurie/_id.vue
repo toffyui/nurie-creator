@@ -64,7 +64,7 @@
         ></div>
       </div>
       <div class="mx-auto w-full h-auto md:w-1/3 p-3">
-        <img class="mx-auto" :src="image" alt />
+        <img class="block w-full h-auto object-cover" :src="image" alt />
 
         <div class="flex items-center" @click="goTop">
           <div
@@ -132,7 +132,7 @@
 export default {
   async asyncData({ params }) {
     return {
-      url: `https://nurie-maker.com/ogp/${params.id}`,
+      url: `https://nurie-maker.com/nurie/${params.id}`,
       image: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${params.id}.jpg`,
       twitterImage: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${params.id}.jpg`,
     }
@@ -171,9 +171,6 @@ export default {
       this.$router.push('/')
     },
   },
-  //   created() {
-  //     this.$router.push('/')
-  //   },
 }
 </script>
 <style>
