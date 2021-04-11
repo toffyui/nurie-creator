@@ -8,6 +8,7 @@ $ yarn install
 
 # serve with hot reload at localhost:3000
 ※.envにAPIのエンドポイントが必要です（非公開）
+*エンドポイントを指定せずに画像をpostすると永遠にローディングが回り続けてしまいますので注意..
 $ yarn dev
 
 # build for production and launch server
