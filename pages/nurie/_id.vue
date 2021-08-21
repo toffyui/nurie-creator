@@ -64,12 +64,7 @@
         ></div>
       </div>
       <div class="mx-auto w-full h-auto md:w-1/3 p-3">
-        <img
-          class="block w-full h-auto object-cover"
-          :src="image"
-          onerror="this.src='https://yuilog.xyz/wp-content/uploads/2021/03/fe641d519ab52c2e93259df4b5078666.png';"
-          alt
-        />
+        <canvas ref="canvas" class="block w-full h-auto"></canvas>
         <div class="flex items-center" @click="goTop">
           <div
             class="cursor-pointer text-center mx-auto bg-orange-400 text-white font-bold rounded-b py-4 w-full shadow-lg"
@@ -168,6 +163,19 @@ export default {
           content: this.twitterImage,
         },
       ],
+    }
+  },
+  mounted() {
+    const canvas = this.$refs.canvas
+    if (canvas) {
+      const ctx = canvas.getContext('2d')
+      const nurieImage = new Image()
+      nurieImage.onload = () => {
+        canvas.width = nurieImage.width
+        canvas.height = nurieImage.height
+        ctx.drawImage(nurieImage, 0, 0, nurieImage.width, nurieImage.height)
+      }
+      nurieImage.src = this.image
     }
   },
   methods: {
