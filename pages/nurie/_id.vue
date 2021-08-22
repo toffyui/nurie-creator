@@ -317,7 +317,6 @@ export default {
       nurieImage.src = this.image
       nurieImage.crossOrigin = 'anonymous'
       nurieImage.onerror = () => {
-        console.log('hoge')
         nurieImage.src = this.noPicture
       }
     },
