@@ -75,9 +75,12 @@
           <canvas
             ref="canvas"
             @mousedown="dragStart"
+            @touchstart="dragStart"
+            @touchend="dragEnd"
             @mouseup="dragEnd"
             @mouseout="dragEnd"
             @mousemove="draw"
+            @touchmove="draw"
           ></canvas>
           <div ref="wrapper" class="flex items-center" @click="goTop">
             <div
