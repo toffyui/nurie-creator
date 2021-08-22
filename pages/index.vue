@@ -161,7 +161,7 @@
               "
             >
               <img
-                alt="twitter"
+                alt="upload"
                 src="../assets/img/upload.svg"
                 class="w-8 h-8"
               />
@@ -217,7 +217,7 @@
                 "
               >
                 <img
-                  alt="twitter"
+                  alt="paint"
                   src="../assets/img/paint.svg"
                   class="w-8 h-8"
                 />
@@ -247,7 +247,7 @@
                 "
               >
                 <img
-                  alt="twitter"
+                  alt="global"
                   src="../assets/img/global.svg"
                   class="w-8 h-8"
                 />
@@ -275,37 +275,31 @@
             <p v-if="!nurieImageUrl" class="text-gray-600 md:mb-8 text-base">
               先に塗り絵を作成してください
             </p>
-            <ul v-if="nurieImageUrl" class="flex space-x-6 mt-3">
-              <li>
-                <div @click="OpenTwitterModal" class="cursor-pointer">
-                  <img
-                    alt="twitter"
-                    src="../assets/img/twitter.svg"
-                    :width="size"
-                    :height="size"
-                  />
-                </div>
-              </li>
-              <li>
-                <div @click="OpenFBModal" class="cursor-pointer">
-                  <img
-                    alt="twitter"
-                    src="../assets/img/facebook.svg"
-                    :width="size"
-                    :height="size"
-                  />
-                </div>
-              </li>
-              <li>
-                <a :href="nurieImageUrl" download>
-                  <img
-                    alt="line"
-                    src="../assets/img/download.svg"
-                    :width="size"
-                    :height="size"
-                  />
-                </a>
-              </li>
+            <ul v-show="nurieImageUrl" class="flex space-x-6 mt-3">
+              <div @click="OpenTwitterModal" class="cursor-pointer">
+                <img
+                  alt="twitter"
+                  src="../assets/img/twitter.svg"
+                  :width="size"
+                  :height="size"
+                />
+              </div>
+              <div @click="OpenFBModal" class="cursor-pointer">
+                <img
+                  alt="facebook"
+                  src="../assets/img/facebook.svg"
+                  :width="size"
+                  :height="size"
+                />
+              </div>
+              <a :href="nurieImageUrl" download>
+                <img
+                  alt="line"
+                  src="../assets/img/download.svg"
+                  :width="size"
+                  :height="size"
+                />
+              </a>
             </ul>
             <h3
               class="
@@ -353,46 +347,28 @@
             </label>
           </div>
           <div class="w-full mt-3 sm:w-1/2 relative">
-            <img
-              v-if="!uploadImageUrl && !nurieImageUrl"
-              src="../assets/img/defaultPic.png"
-              alt="default"
-              class="border-dashed border-4 border-gray-600"
-            />
-            <img
-              v-if="uploadImageUrl"
-              class="border-dashed border-4 border-gray-600"
-              width="100%"
-              :class="{ 'opacity-50': overlay }"
-              :src="uploadImageUrl"
-            />
-            <img
-              v-if="nurieImageUrl"
-              class="border-dashed border-4 border-gray-600"
-              width="100%"
-              :src="nurieImageUrl"
-            />
-            <div v-if="overlay" class="absolute overlay">
-              <svg
-                class="animate-spin"
-                xmlns="http://www.w3.org/2000/svg"
-                version="1.1"
-                height="40"
-                width="40"
-                viewBox="0 0 75 75"
-              >
-                <circle
-                  cx="37.5"
-                  cy="37.5"
-                  r="33.5"
-                  stroke-width="8"
-                  fill="none"
-                  stroke="#F5AD54"
-                  stroke-linecap="square"
-                  stroke-dasharray="151.55042961px,210.48670779px"
-                  stroke-dashoffset="0"
-                />
-              </svg>
+            <div class="relative">
+              <img
+                v-if="!uploadImageUrl && !nurieImageUrl"
+                src="../assets/img/defaultPic.png"
+                alt="default"
+                class="border-dashed border-4 border-gray-600"
+                width="100%"
+              />
+              <img
+                v-if="uploadImageUrl"
+                class="border-dashed border-4 border-gray-600"
+                width="100%"
+                :class="{ 'opacity-50': overlay }"
+                :src="uploadImageUrl"
+              />
+              <img
+                v-if="nurieImageUrl"
+                class="border-dashed border-4 border-gray-600"
+                width="100%"
+                :src="nurieImageUrl"
+              />
+              <Loading class="absolute overlay" v-if="overlay" />
             </div>
           </div>
         </div>
@@ -647,9 +623,11 @@ import getNurieImage from '~/assets/lib/getNurie'
 import getAllNurie from '~/assets/lib/getAllNurie'
 import postImageData from '~/assets/lib/postImageData'
 import Modal from '~/components/Share.vue'
+import Loading from '~/components/Loading.vue'
 export default Vue.extend({
   components: {
     Modal,
+    Loading,
   },
   data() {
     return {
@@ -672,7 +650,7 @@ export default Vue.extend({
       return 36
     },
     url() {
-      return `https://nurie-maker.com/nurie/${this.uuid}`
+      return `${process.env.BASE_URL}/nurie/${this.uuid}`
     },
     twitterURL() {
       return (
@@ -728,9 +706,11 @@ export default Vue.extend({
       })
     },
     async goNuriePage() {
+      this.overlay = true
       this.uuid = this.generateUuid()
       await postImageData(this.uuid, this.nurieData).then(() => {
         window.open(`/nurie/${this.uuid}`, '_blank')
+        this.overlay = false
       })
     },
     goPaintPage(paint) {
@@ -816,7 +796,6 @@ export default Vue.extend({
   background: linear-gradient(90deg, #ff5757 0%, #fedd58 100%);
 }
 .overlay {
-  position: absolute;
   top: 50%;
   left: 50%;
   transform: translateY(-50%) translateX(-50%);

@@ -143,13 +143,13 @@
                 font-bold
                 rounded
                 py-4
-                w-full
+                w-1/2
                 shadow-lg
               "
             >
               やりなおす
             </button>
-            <!-- <button
+            <button
               @click="download"
               class="
                 text-center
@@ -164,7 +164,7 @@
               "
             >
               ダウンロード
-            </button> -->
+            </button>
           </div>
         </div>
       </div>
@@ -233,8 +233,8 @@
 export default {
   async asyncData({ params }) {
     return {
-      url: `https://nurie-maker.com/paint/${params.id}`,
-      image: `${process.env.AWS_IMAGE_URL}/Moderation/${params.id}.jpg`,
+      url: `${process.env.BASE_URL}/paint/${params.id}`,
+      image: `${process.env.BASE_URL}/Moderation/${params.id}.jpg`,
       twitterImage: `${process.env.AWS_IMAGE_URL}/Moderation/${params.id}.jpg`,
     }
   },
@@ -295,6 +295,7 @@ export default {
       this.nurieCtx = this.nurieCanvas.getContext('2d')
       const wrapper = this.$refs.wrapper
       const nurieImage = new Image()
+      nurieImage.setAttribute('crossorigin', 'anonymous')
       nurieImage.onload = () => {
         this.ctx.scale(2, 2)
         const scale = wrapper.clientWidth / nurieImage.naturalWidth
@@ -315,7 +316,6 @@ export default {
         )
       }
       nurieImage.src = this.image
-      //   nurieImage.crossOrigin = 'anonymous'
       nurieImage.onerror = () => {
         nurieImage.src = this.noPicture
       }
@@ -363,8 +363,8 @@ export default {
     },
     download() {
       let link = document.createElement('a')
-      link.href = this.canvas.toDataURL('image/png')
-      link.download = 'canvas-' + new Date().getTime() + '.png'
+      link.href = this.canvas.toDataURL('image/jpeg')
+      link.download = 'nurie-' + new Date().getTime() + '.jpg'
       link.click()
     },
     updateValue(e) {
