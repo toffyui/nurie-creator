@@ -233,7 +233,7 @@
 export default {
   async asyncData({ params }) {
     return {
-      url: `https://nurie-maker.com/nurie/${params.id}`,
+      url: `https://nurie-maker.com/paint/${params.id}`,
       image: `${process.env.AWS_IMAGE_URL}/Moderation/${params.id}.jpg`,
       twitterImage: `${process.env.AWS_IMAGE_URL}/Moderation/${params.id}.jpg`,
     }
@@ -281,6 +281,7 @@ export default {
       canvas: null,
       ctx: null,
       colors: '#000000',
+      noPicture: require('@/assets/img/noPic.png'),
     }
   },
   mounted() {
@@ -315,6 +316,9 @@ export default {
       }
       nurieImage.src = this.image
       nurieImage.crossOrigin = 'anonymous'
+      nurieImage.onerror = () => {
+        nurieImage.src = this.noPicture
+      }
     },
     goTop() {
       this.$router.push('/')

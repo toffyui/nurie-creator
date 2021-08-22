@@ -539,9 +539,10 @@
           :key="nurie.id"
           class="w-full md:w-1/3 p-3 flex flex-col"
         >
-          <a
-            :href="'/paint/' + paintUrl(nurie[0])"
+          <div
+            @click="goPaintPage(nurie[0])"
             class="
+              cursor-pointer
               overflow-hidden
               rounded-lg
               shadow-lg
@@ -575,7 +576,7 @@
                 {{ nurie[1] }}に投稿
               </div>
             </div>
-          </a>
+          </div>
         </div>
       </div>
     </section>
@@ -729,9 +730,11 @@ export default Vue.extend({
     async goNuriePage() {
       this.uuid = this.generateUuid()
       await postImageData(this.uuid, this.nurieData).then(() => {
-        this.isFetched = true
         window.open(`/nurie/${this.uuid}`, '_blank')
       })
+    },
+    goPaintPage(paint) {
+      window.open(`/paint/${this.paintUrl(paint)}`, '_blank')
     },
     CloseModal() {
       this.twitterModalFlag = false
