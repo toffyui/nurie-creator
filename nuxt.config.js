@@ -76,7 +76,7 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios', '@nuxtjs/dotenv'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/dotenv', 'vue-color'],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
