@@ -255,7 +255,7 @@ export default {
         )
       }
       nurieImage.src = this.image
-      nurieImage.crossOrigin = 'anonymous'
+      //   nurieImage.crossOrigin = 'anonymous'
     },
     goTop() {
       this.$router.push('/')
