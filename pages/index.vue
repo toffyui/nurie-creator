@@ -5,11 +5,28 @@
   >
     <div>
       <div
-        class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center lg:pt-0 pt-5"
+        class="
+          container
+          px-3
+          mx-auto
+          flex flex-wrap flex-col
+          md:flex-row
+          items-center
+          lg:pt-0
+          pt-5
+        "
       >
         <!--Left Col-->
         <div
-          class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left"
+          class="
+            flex flex-col
+            w-full
+            md:w-2/5
+            justify-center
+            items-start
+            text-center
+            md:text-left
+          "
         >
           <p class="tracking-loose w-full md:block hidden">
             オリジナル塗り絵作りませんか？
@@ -21,7 +38,25 @@
             画像をボタン一つで塗り絵にできます。
           </p>
           <a
-            class="md:mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full md:my-3 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+            class="
+              md:mx-auto
+              lg:mx-0
+              hover:underline
+              bg-white
+              text-gray-800
+              font-bold
+              rounded-full
+              md:my-3
+              py-4
+              px-8
+              shadow-lg
+              focus:outline-none focus:shadow-outline
+              transform
+              transition
+              hover:scale-105
+              duration-300
+              ease-in-out
+            "
             href="#make"
           >
             今すぐ作る
@@ -78,7 +113,15 @@
     <section id="make" class="bg-white border-b md:py-8 py-4">
       <div class="container max-w-5xl mx-auto m-8">
         <h1
-          class="w-full my-2 md:text-5xl text-2xl font-bold leading-tight text-center text-gray-800"
+          class="
+            w-full
+            my-2
+            md:text-5xl
+            text-2xl
+            font-bold
+            leading-tight
+            text-center text-gray-800
+          "
         >
           塗り絵を作る
         </h1>
@@ -90,7 +133,13 @@
         <div class="flex flex-wrap">
           <div class="w-full sm:w-1/2 p-6 mx-auto">
             <h3
-              class="md:text-3xl text-lg text-gray-800 font-bold leading-none mb-3"
+              class="
+                md:text-3xl
+                text-lg text-gray-800
+                font-bold
+                leading-none
+                mb-3
+              "
             >
               ライブラリから画像を選択
             </h3>
@@ -98,7 +147,18 @@
               できる限り輪郭がはっきりしている画像を選んでください。
             </p>
             <label
-              class="cursor-pointer inline-flex items-center bg-orange-400 hover:bg-orange-300 text-white font-bold py-2 px-4 rounded-full"
+              class="
+                cursor-pointer
+                inline-flex
+                items-center
+                bg-orange-400
+                hover:bg-orange-300
+                text-white
+                font-bold
+                py-2
+                px-4
+                rounded-full
+              "
             >
               <svg
                 class="w-8 h-8"
@@ -115,13 +175,20 @@
                 id="file"
                 ref="fileInput"
                 type="file"
-                accept="image/*"
+                accept=".jpg,.jpeg,.png"
                 class="hidden"
                 @change="setImage"
               />
             </label>
             <h3
-              class="md:text-3xl text-lg text-gray-800 font-bold leading-none mt-6 mb-3"
+              class="
+                md:text-3xl
+                text-lg text-gray-800
+                font-bold
+                leading-none
+                mt-6
+                mb-3
+              "
             >
               塗り絵に変換
             </h3>
@@ -139,7 +206,20 @@
                 塗り絵に変換して公開するを選ぶと、できた塗り絵が自動で公開されます。
               </p>
               <label
-                class="cursor-pointer inline-flex items-center bg-white boder-solid border-2 border-orange-600 hover:border-orange-500 text-white font-bold py-2 px-4 rounded-full"
+                class="
+                  cursor-pointer
+                  inline-flex
+                  items-center
+                  bg-white
+                  boder-solid
+                  border-2 border-orange-600
+                  hover:border-orange-500
+                  text-white
+                  font-bold
+                  py-2
+                  px-4
+                  rounded-full
+                "
               >
                 <svg
                   class="w-8 h-8"
@@ -161,7 +241,22 @@
                 </div>
               </label>
               <label
-                class="cursor-pointer lg:m-0 mt-3 inline-flex items-center boder-solid border-2 border-orange-600 bg-orange-600 hover:bg-orange-500 hover:border-orange-500 text-white font-bold py-2 px-4 rounded-full"
+                class="
+                  cursor-pointer
+                  lg:m-0
+                  mt-3
+                  inline-flex
+                  items-center
+                  boder-solid
+                  border-2 border-orange-600
+                  bg-orange-600
+                  hover:bg-orange-500 hover:border-orange-500
+                  text-white
+                  font-bold
+                  py-2
+                  px-4
+                  rounded-full
+                "
               >
                 <svg
                   class="w-8 h-8"
@@ -185,7 +280,14 @@
             </div>
 
             <h3
-              class="md:text-3xl text-lg text-gray-800 font-bold leading-none mt-6 mb-3"
+              class="
+                md:text-3xl
+                text-lg text-gray-800
+                font-bold
+                leading-none
+                mt-6
+                mb-3
+              "
             >
               画像をシェア/保存
             </h3>
@@ -273,7 +375,17 @@
           <div>
             <img
               v-if="nurieImageUrl"
-              class="border-dashed border-4 mt-3 border-gray-600 mx-auto modalImageClass block w-full h-auto object-cover"
+              class="
+                border-dashed border-4
+                mt-3
+                border-gray-600
+                mx-auto
+                modalImageClass
+                block
+                w-full
+                h-auto
+                object-cover
+              "
               :src="nurieImageUrl"
             />
             <div
@@ -295,7 +407,17 @@
             </div>
             <button
               @click="tweetButton"
-              class="text-center mx-auto bg-orange-400 text-white font-bold rounded-b py-4 w-full shadow-lg"
+              class="
+                text-center
+                mx-auto
+                bg-orange-400
+                text-white
+                font-bold
+                rounded-b
+                py-4
+                w-full
+                shadow-lg
+              "
             >
               ツイートする
             </button>
@@ -305,7 +427,17 @@
           <div>
             <img
               v-if="nurieImageUrl"
-              class="border-dashed border-4 mt-3 border-gray-600 mx-auto modalImageClass block w-full h-auto object-cover"
+              class="
+                border-dashed border-4
+                mt-3
+                border-gray-600
+                mx-auto
+                modalImageClass
+                block
+                w-full
+                h-auto
+                object-cover
+              "
               :src="nurieImageUrl"
             />
             <div
@@ -327,7 +459,17 @@
             </div>
             <button
               @click="tweetButton"
-              class="text-center mx-auto bg-orange-400 text-white font-bold rounded-b py-4 w-full shadow-lg"
+              class="
+                text-center
+                mx-auto
+                bg-orange-400
+                text-white
+                font-bold
+                rounded-b
+                py-4
+                w-full
+                shadow-lg
+              "
             >
               シェアする
             </button>
@@ -338,7 +480,15 @@
     <section class="bg-orange-200 py-8">
       <div class="container mx-auto flex flex-wrap pt-4 pb-12">
         <h1
-          class="w-full my-2 md:text-5xl text-2xl font-bold leading-tight text-center text-gray-800"
+          class="
+            w-full
+            my-2
+            md:text-5xl
+            text-2xl
+            font-bold
+            leading-tight
+            text-center text-gray-800
+          "
         >
           最近投稿された塗り絵
         </h1>
@@ -355,7 +505,16 @@
           <a
             download
             :href="nurie[0]"
-            class="overflow-hidden rounded-lg shadow-lg transform transition hover:scale-105 duration-300 ease-in-out"
+            class="
+              overflow-hidden
+              rounded-lg
+              shadow-lg
+              transform
+              transition
+              hover:scale-105
+              duration-300
+              ease-in-out
+            "
           >
             <img
               :src="nurie[0]"
@@ -367,7 +526,17 @@
               <div
                 download
                 :href="nurie"
-                class="text-center mx-auto bg-orange-400 text-white font-bold rounded-b py-4 w-full shadow-lg"
+                class="
+                  text-center
+                  mx-auto
+                  bg-orange-400
+                  text-white
+                  font-bold
+                  rounded-b
+                  py-4
+                  w-full
+                  shadow-lg
+                "
               >
                 {{ nurie[1] }}に投稿
               </div>
@@ -413,7 +582,15 @@
       </g>
     </svg>
     <section
-      class="md:flex md:justify-between container mx-auto py-3 md:py-6 px-5 md:px-20"
+      class="
+        md:flex md:justify-between
+        container
+        mx-auto
+        py-3
+        md:py-6
+        px-5
+        md:px-20
+      "
     >
       <div class="my-4 text-base leading-tight">
         <a href="https://twitter.com/yui_active" class="underline"

@@ -14,7 +14,8 @@
     "@nuxtjs/axios": "^5.13.1",
     "@nuxtjs/dotenv": "^1.4.1",
     "nuxt": "^2.14.12",
-    "swiper": "^6.4.15"
+    "swiper": "^6.4.15",
+    "vue-color": "^2.8.1"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.12",
