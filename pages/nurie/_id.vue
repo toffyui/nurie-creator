@@ -318,6 +318,7 @@ export default {
       nurieImage.onerror = () => {
         nurieImage.src =
           'https://yuilog.xyz/wp-content/uploads/2021/03/fe641d519ab52c2e93259df4b5078666.png'
+        return
       }
     },
     goTop() {
