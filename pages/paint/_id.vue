@@ -143,13 +143,13 @@
                 font-bold
                 rounded
                 py-4
-                w-1/2
+                w-full
                 shadow-lg
               "
             >
               やりなおす
             </button>
-            <button
+            <!-- <button
               @click="download"
               class="
                 text-center
@@ -164,7 +164,7 @@
               "
             >
               ダウンロード
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
@@ -315,7 +315,7 @@ export default {
         )
       }
       nurieImage.src = this.image
-      nurieImage.crossOrigin = 'anonymous'
+      //   nurieImage.crossOrigin = 'anonymous'
       nurieImage.onerror = () => {
         nurieImage.src = this.noPicture
       }
