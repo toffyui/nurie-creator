@@ -30,8 +30,8 @@ export default {
     return {
       uuid: params.id,
       url: `https://nurie-maker.com/ogp/${params.id}`,
-      image: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${params.id}.jpg`,
-      twitterImage: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${params.id}.jpg`,
+      image: `${process.env.AWS_IMAGE_URL}/ogpimg/${params.id}.jpg`,
+      twitterImage: `${process.env.AWS_IMAGE_URL}/ogpimg/${params.id}.jpg`,
     }
   },
   head() {
