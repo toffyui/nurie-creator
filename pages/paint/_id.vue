@@ -314,7 +314,7 @@ export default {
         )
       }
       nurieImage.src = this.image
-      //   nurieImage.crossOrigin = 'anonymous'
+      nurieImage.crossOrigin = 'anonymous'
       nurieImage.onerror = () => {
         nurieImage.src =
           'https://yuilog.xyz/wp-content/uploads/2021/03/fe641d519ab52c2e93259df4b5078666.png'
