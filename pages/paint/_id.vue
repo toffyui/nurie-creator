@@ -98,41 +98,77 @@
             </div>
           </div>
         </div>
-        <div>
-          <Sketch :value="colors" @input="updateValue"></Sketch>
-          <p @click="isErase = !isErase">消しゴム</p>
-          <p class="text-base mt-4 mb-2 font-bold text-center">
-            線の太さを変更する
-          </p>
+        <div class="w-full md:w-1/4">
+          <client-only>
+            <Sketch :value="colors" @input="updateValue"></Sketch>
+          </client-only>
+          <div class="flex items-center justify-center py-4">
+            <div>
+              <p>線の太さ</p>
+              <div class="circle">
+                <div
+                  class="lineWidth"
+                  :style="{
+                    width: lineWidth / 2 + 'px',
+                    height: lineWidth / 2 + 'px',
+                    backgroundColor: currentColor,
+                    borderRadius: '50%',
+                  }"
+                ></div>
+              </div>
+            </div>
+            <img
+              alt="line"
+              src="../../assets/img/pencil.svg"
+              width="80px"
+              height="80px"
+            />
+          </div>
           <input
             class="w-full input-range"
-            @change="updateLineWidth"
+            @input="updateLineWidth"
             type="range"
             :value="lineWidth"
             step="1"
-            max="50"
+            max="100"
           />
-          <button
-            @click="deleteNurie"
-            class="
-              text-center
-              mx-auto
-              bg-orange-400
-              text-white
-              font-bold
-              rounded-b
-              py-4
-              w-full
-              shadow-lg
-            "
-          >
-            やりなおす
-          </button>
+          <div class="flex gap-4 mt-4">
+            <button
+              @click="deleteNurie"
+              class="
+                text-center
+                mx-auto
+                bg-orange-900
+                text-white
+                font-bold
+                rounded
+                py-4
+                w-1/2
+                shadow-lg
+              "
+            >
+              やりなおす
+            </button>
+            <button
+              @click="download"
+              class="
+                text-center
+                mx-auto
+                bg-orange-700
+                text-white
+                font-bold
+                rounded
+                py-4
+                w-1/2
+                shadow-lg
+              "
+            >
+              ダウンロード
+            </button>
+          </div>
         </div>
       </div>
     </div>
-
-    <button @click="download">download</button>
     <div class="gradient text-white">
       <svg
         class="wave-top"
@@ -239,7 +275,7 @@ export default {
         y: null,
       },
       currentColor: '#000000',
-      lineWidth: 5,
+      lineWidth: 20,
       nurieCanvas: null,
       nurieCtx: null,
       eraseCanvas: null,
@@ -247,7 +283,6 @@ export default {
       canvas: null,
       ctx: null,
       colors: '#000000',
-      isErase: false,
     }
   },
   mounted() {
@@ -291,7 +326,7 @@ export default {
         )
       }
       nurieImage.src = this.image
-      nurieImage.crossOrigin = 'anonymous'
+      //   nurieImage.crossOrigin = 'anonymous'
     },
     goTop() {
       this.$router.push('/')
@@ -307,24 +342,19 @@ export default {
       if (!this.isDrag) {
         return
       }
-      if (this.isErase) {
-        this.nurieCtx.globalCompositeOperation = 'destination-out'
+      this.nurieCtx.lineCap = 'round'
+      this.nurieCtx.lineJoin = 'round'
+      this.nurieCtx.lineWidth = this.lineWidth
+      this.nurieCtx.strokeStyle = this.currentColor
+      if (this.lastPosition.x === null || this.lastPosition.y === null) {
+        this.nurieCtx.moveTo(x, y)
       } else {
-        this.nurieCtx.globalCompositeOperation = 'source-over'
-        this.nurieCtx.lineCap = 'round'
-        this.nurieCtx.lineJoin = 'round'
-        this.nurieCtx.lineWidth = this.lineWidth
-        this.nurieCtx.strokeStyle = this.currentColor
-        if (this.lastPosition.x === null || this.lastPosition.y === null) {
-          this.nurieCtx.moveTo(x, y)
-        } else {
-          this.nurieCtx.moveTo(this.lastPosition.x, this.lastPosition.y)
-        }
-        this.nurieCtx.lineTo(x, y)
-        this.nurieCtx.stroke()
-        this.lastPosition.x = x
-        this.lastPosition.y = y
+        this.nurieCtx.moveTo(this.lastPosition.x, this.lastPosition.y)
       }
+      this.nurieCtx.lineTo(x, y)
+      this.nurieCtx.stroke()
+      this.lastPosition.x = x
+      this.lastPosition.y = y
       this.ctx.drawImage(
         this.nurieCanvas,
         0,
@@ -392,5 +422,20 @@ export default {
 .input-range[type='range']:active::-webkit-slider-thumb {
   box-shadow: 0 0 0 4px rgba(255, 87, 87, 0.6);
   transition: 0.4s;
+}
+.circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid #000;
+  background: #fff;
+  position: relative;
+}
+.lineWidth {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
 }
 </style>
