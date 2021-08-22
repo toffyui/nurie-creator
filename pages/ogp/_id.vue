@@ -29,7 +29,7 @@ export default {
   async asyncData({ params }) {
     return {
       uuid: params.id,
-      url: `https://nurie-maker.com/ogp/${params.id}`,
+      url: `${process.env.BASE_URL}/ogp/${params.id}`,
       image: `${process.env.AWS_IMAGE_URL}/ogpimg/${params.id}.jpg`,
       twitterImage: `${process.env.AWS_IMAGE_URL}/ogpimg/${params.id}.jpg`,
     }

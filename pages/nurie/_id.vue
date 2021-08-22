@@ -233,8 +233,8 @@
 export default {
   async asyncData({ params }) {
     return {
-      url: `https://nurie-maker.com/nurie/${params.id}`,
-      image: `${process.env.AWS_IMAGE_URL}/ogpimg/${params.id}.jpg`,
+      url: `${process.env.BASE_URL}/nurie/${params.id}`,
+      image: `${process.env.BASE_URL}/ogpimg/${params.id}.jpg`,
       twitterImage: `${process.env.AWS_IMAGE_URL}/ogpimg/${params.id}.jpg`,
     }
   },
@@ -315,7 +315,6 @@ export default {
         )
       }
       nurieImage.src = this.image
-      nurieImage.crossOrigin = 'anonymous'
       nurieImage.onerror = () => {
         nurieImage.src = this.noPicture
       }
@@ -363,8 +362,8 @@ export default {
     },
     download() {
       let link = document.createElement('a')
-      link.href = this.canvas.toDataURL('image/png')
-      link.download = 'canvas-' + new Date().getTime() + '.png'
+      link.href = this.canvas.toDataURL('image/jpeg')
+      link.download = 'nurie-' + new Date().getTime() + '.jpg'
       link.click()
     },
     updateValue(e) {

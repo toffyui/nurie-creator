@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { API_BASE_URL, AWS_IMAGE_URL } = process.env
+const { API_BASE_URL, AWS_IMAGE_URL, BASE_URL } = process.env
 export default {
   head: {
     title: '塗り絵ツクール',
@@ -67,6 +67,7 @@ export default {
   env: {
     API_BASE_URL,
     AWS_IMAGE_URL,
+    BASE_URL,
   },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
@@ -77,7 +78,19 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios', '@nuxtjs/dotenv'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/dotenv', '@nuxtjs/proxy'],
+  proxy: {
+    '/Moderation/': {
+      target: AWS_IMAGE_URL,
+      changeOrigin: true,
+      secure: false,
+    },
+    '/ogpimg/': {
+      target: AWS_IMAGE_URL,
+      changeOrigin: true,
+      secure: false,
+    },
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
