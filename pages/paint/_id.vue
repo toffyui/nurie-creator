@@ -81,11 +81,11 @@
           </div>
         </div>
         <div>
-          <client-only>
+          <!-- <client-only>
             <sketch-picker :value="colors" @input="updateValue"
               >></sketch-picker
             >
-          </client-only>
+          </client-only> -->
           <p @click="isErase = !isErase">消しゴム</p>
           <p class="text-base mt-4 mb-2 font-bold text-center">
             線の太さを変更する
@@ -162,7 +162,7 @@
   </div>
 </template>
 <script>
-import { Sketch } from 'vue-color'
+// import { Sketch } from 'vue-color'
 export default {
   async asyncData({ params }) {
     return {
@@ -201,7 +201,7 @@ export default {
     }
   },
   components: {
-    'sketch-picker': Sketch,
+    // 'sketch-picker': Sketch,
   },
   data() {
     return {
