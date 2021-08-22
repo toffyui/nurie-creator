@@ -323,12 +323,15 @@
               先に塗り絵を作成してください
             </p>
             <label
+              v-else
               class="
                 cursor-pointer
                 inline-flex
                 items-center
-                bg-orange-400
-                hover:bg-orange-300
+                bg-white
+                boder-solid
+                border-2 border-orange-600
+                hover:border-orange-500
                 text-white
                 font-bold
                 py-2
@@ -336,17 +339,17 @@
                 rounded-full
               "
             >
-              <svg
+              <img
+                alt="twitter"
+                src="../assets/img/paint.svg"
                 class="w-8 h-8"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
+              />
+              <div
+                class="text-orange-600 ml-2 text-base leading-normal"
+                @click="goNuriePage"
               >
-                <path
-                  d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z"
-                />
-              </svg>
-              <span class="ml-2 text-base leading-normal">画像を</span>
+                塗り絵で遊ぶ
+              </div>
             </label>
           </div>
           <div class="w-full mt-3 sm:w-1/2 relative">
@@ -514,6 +517,18 @@
         >
           最近投稿された塗り絵
         </h1>
+        <div
+          class="
+            w-full
+            font-bold
+            md:text-2xl
+            text-xl
+            mb-2
+            text-center text-gray-800
+          "
+        >
+          画像クリックで塗り絵で遊べます
+        </div>
         <div class="w-full mb-4">
           <div
             class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-b"
@@ -709,6 +724,13 @@ export default Vue.extend({
       await postImageData(this.uuid, this.nurieData).then(() => {
         this.isFetched = true
         window.history.pushState(null, null, `/nurie/${this.uuid}`)
+      })
+    },
+    async goNuriePage() {
+      this.uuid = this.generateUuid()
+      await postImageData(this.uuid, this.nurieData).then(() => {
+        this.isFetched = true
+        window.open(`/nurie/${this.uuid}`, '_blank')
       })
     },
     CloseModal() {
