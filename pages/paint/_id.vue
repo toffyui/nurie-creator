@@ -234,8 +234,8 @@ export default {
   async asyncData({ params }) {
     return {
       url: `https://nurie-maker.com/nurie/${params.id}`,
-      image: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${params.id}.jpg`,
-      twitterImage: `https://nurie.s3-ap-northeast-1.amazonaws.com/ogpimg/${params.id}.jpg`,
+      image: `${process.env.AWS_IMAGE_URL}/Moderation/${params.id}.jpg`,
+      twitterImage: `${process.env.AWS_IMAGE_URL}/Moderation/${params.id}.jpg`,
     }
   },
   head() {
@@ -278,8 +278,6 @@ export default {
       lineWidth: 20,
       nurieCanvas: null,
       nurieCtx: null,
-      eraseCanvas: null,
-      eraseCtx: null,
       canvas: null,
       ctx: null,
       colors: '#000000',
@@ -294,29 +292,19 @@ export default {
       this.ctx = this.canvas.getContext('2d')
       this.nurieCanvas = document.createElement('canvas')
       this.nurieCtx = this.nurieCanvas.getContext('2d')
-      this.eraseCanvas = document.createElement('canvas')
-      this.eraseCtx = this.eraseCanvas.getContext('2d')
       const wrapper = this.$refs.wrapper
       const nurieImage = new Image()
       nurieImage.onload = () => {
         this.ctx.scale(2, 2)
         const scale = wrapper.clientWidth / nurieImage.naturalWidth
-        this.canvas.width =
-          this.nurieCanvas.width =
-          this.eraseCanvas.width =
-            nurieImage.naturalWidth * scale * 2
-        this.canvas.height =
-          this.nurieCanvas.height =
-          this.eraseCanvas.height =
-            nurieImage.naturalHeight * scale * 2
-        this.canvas.style.width =
-          this.nurieCanvas.style.width =
-          this.eraseCanvas.style.width =
-            this.canvas.width / 2 + 'px'
-        this.canvas.style.height =
-          this.nurieCanvas.style.height =
-          this.eraseCanvas.style.height =
-            this.canvas.height / 2 + 'px'
+        this.canvas.width = this.nurieCanvas.width =
+          nurieImage.naturalWidth * scale * 2
+        this.canvas.height = this.nurieCanvas.height =
+          nurieImage.naturalHeight * scale * 2
+        this.canvas.style.width = this.nurieCanvas.style.width =
+          this.canvas.width / 2 + 'px'
+        this.canvas.style.height = this.nurieCanvas.style.height =
+          this.canvas.height / 2 + 'px'
         this.ctx.drawImage(
           nurieImage,
           0,
@@ -326,14 +314,17 @@ export default {
         )
       }
       nurieImage.src = this.image
-      nurieImage.crossOrigin = 'anonymous'
+      //   nurieImage.crossOrigin = 'anonymous'
+      nurieImage.onerror = () => {
+        nurieImage.src =
+          'https://yuilog.xyz/wp-content/uploads/2021/03/fe641d519ab52c2e93259df4b5078666.png'
+      }
     },
     goTop() {
       this.$router.push('/')
     },
     dragStart() {
       this.nurieCtx.beginPath()
-      this.eraseCtx.beginPath()
       this.isDrag = true
     },
     draw(e) {
@@ -365,7 +356,6 @@ export default {
     },
     dragEnd() {
       this.nurieCtx.closePath()
-      this.eraseCtx.closePath()
       this.isDrag = false
       this.lastPosition.x = null
       this.lastPosition.y = null

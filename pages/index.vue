@@ -503,8 +503,7 @@
           class="w-full md:w-1/3 p-3 flex flex-col"
         >
           <a
-            download
-            :href="nurie[0]"
+            :href="'/paint/' + paintUrl(nurie[0])"
             class="
               overflow-hidden
               rounded-lg
@@ -524,8 +523,6 @@
 
             <div class="flex items-center">
               <div
-                download
-                :href="nurie"
                 class="
                   text-center
                   mx-auto
@@ -607,6 +604,7 @@
 
 <script>
 import Vue from 'vue'
+import resizeImage from '~/assets/lib/resizeImage'
 import getNurieImage from '~/assets/lib/getNurie'
 import getAllNurie from '~/assets/lib/getAllNurie'
 import postImageData from '~/assets/lib/postImageData'
@@ -628,6 +626,7 @@ export default Vue.extend({
       FBModalFlag: false,
       nurieData: '',
       isFetched: false,
+      base64: '',
     }
   },
   computed: {
@@ -647,6 +646,11 @@ export default Vue.extend({
     },
     facebookURL() {
       return `https://www.facebook.com/sharer/sharer.php?u=${this.url}&t=塗り絵ツクールで塗り絵を作ったよ\n#塗り絵ツクール`
+    },
+    paintUrl() {
+      return function (url) {
+        return new URL(url).pathname.split('/')[2].replace('.jpg', '')
+      }
     },
   },
 
@@ -691,14 +695,32 @@ export default Vue.extend({
       this.isFetched = false
       window.history.pushState(null, null, '/')
     },
-    setImage(e) {
-      this.file = e.target.files[0]
-      this.nurieImageUrl = ''
-      const reader = new FileReader()
-      reader.addEventListener('load', () => {
-        this.uploadImageUrl = reader.result
+
+    checkImageSize(file) {
+      return new Promise((resolve) => {
+        const reader = new FileReader()
+        if (file.size > 40 * 1000 * 1000) {
+          alert('画像が大きすぎます')
+          return
+        }
+        reader.onload = (e) => {
+          this.uploadImageUrl = reader.result
+          const image = new Image()
+          image.src = e.target.result
+          image.onload = () => {
+            resolve(image)
+          }
+        }
+        reader.readAsDataURL(file)
       })
-      reader.readAsDataURL(this.file)
+    },
+    async setImage(e) {
+      const [file] = e.target.files
+      this.nurieImageUrl = ''
+      const image = await this.checkImageSize(file)
+      if (image) {
+        this.base64 = await resizeImage(image, 800, 800)
+      }
     },
     isPublicChange() {
       this.isPublic = !this.isPublic
@@ -707,10 +729,10 @@ export default Vue.extend({
       }
     },
     getNurie() {
-      this.getResult(this.file, 'False')
+      this.getResult(this.base64, 'False')
     },
     getNuriePublic() {
-      this.getResult(this.file, 'True')
+      this.getResult(this.base64, 'True')
     },
     generateUuid() {
       let chars = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.split('')
