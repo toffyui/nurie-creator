@@ -63,23 +63,52 @@
           class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-b"
         ></div>
       </div>
-      <div class="mx-auto w-full h-auto md:w-1/3 p-3">
-        <img
-          class="block w-full h-auto object-cover"
-          :src="image"
-          onerror="this.src='https://yuilog.xyz/wp-content/uploads/2021/03/fe641d519ab52c2e93259df4b5078666.png';"
-          alt
-        />
-        <div class="flex items-center" @click="goTop">
-          <div
-            class="cursor-pointer text-center mx-auto bg-orange-400 text-white font-bold rounded-b py-4 w-full shadow-lg"
-          >
-            塗り絵ツクールで塗り絵を作る
+      <div class="flex md:flex-row flex-col justify-center p-3 gap-5">
+        <div class="w-full h-auto md:w-1/2 lg:w-1/3">
+          <canvas
+            ref="canvas"
+            @mousedown="dragStart"
+            @mouseup="dragEnd"
+            @mouseout="dragEnd"
+            @mousemove="draw"
+          ></canvas>
+          <div ref="wrapper" class="flex items-center" @click="goTop">
+            <div
+              class="cursor-pointer text-center mx-auto bg-orange-400 text-white font-bold rounded-b py-4 w-full shadow-lg"
+            >
+              塗り絵ツクールで塗り絵を作る
+            </div>
           </div>
+        </div>
+        <div>
+          <client-only>
+            <sketch-picker :value="colors" @input="updateValue"
+              >></sketch-picker
+            >
+          </client-only>
+          <p @click="isErase = !isErase">消しゴム</p>
+          <p class="text-base mt-4 mb-2 font-bold text-center">
+            線の太さを変更する
+          </p>
+          <input
+            class="w-full input-range"
+            @change="updateLineWidth"
+            type="range"
+            :value="lineWidth"
+            step="1"
+            max="50"
+          />
+          <button
+            @click="deleteNurie"
+            class="text-center mx-auto bg-orange-400 text-white font-bold rounded-b py-4 w-full shadow-lg"
+          >
+            やりなおす
+          </button>
         </div>
       </div>
     </div>
 
+    <button @click="download">download</button>
     <div class="gradient text-white">
       <svg
         class="wave-top"
@@ -133,6 +162,7 @@
   </div>
 </template>
 <script>
+import { Sketch } from 'vue-color'
 export default {
   async asyncData({ params }) {
     return {
@@ -170,9 +200,127 @@ export default {
       ],
     }
   },
+  components: {
+    'sketch-picker': Sketch,
+  },
+  data() {
+    return {
+      isDrag: false,
+      lastPosition: {
+        x: null,
+        y: null,
+      },
+      currentColor: '#000000',
+      lineWidth: 5,
+      nurieCanvas: null,
+      nurieCtx: null,
+      eraseCanvas: null,
+      eraseCtx: null,
+      canvas: null,
+      ctx: null,
+      colors: '#000000',
+      isErase: false,
+    }
+  },
+  mounted() {
+    this.init()
+  },
   methods: {
+    init() {
+      this.canvas = this.$refs.canvas
+      this.ctx = this.canvas.getContext('2d')
+      this.nurieCanvas = document.createElement('canvas')
+      this.nurieCtx = this.nurieCanvas.getContext('2d')
+      this.eraseCanvas = document.createElement('canvas')
+      this.eraseCtx = this.eraseCanvas.getContext('2d')
+      const wrapper = this.$refs.wrapper
+      const nurieImage = new Image()
+      nurieImage.onload = () => {
+        this.ctx.scale(2, 2)
+        const scale = wrapper.clientWidth / nurieImage.naturalWidth
+        this.canvas.width = this.nurieCanvas.width = this.eraseCanvas.width =
+          nurieImage.naturalWidth * scale * 2
+        this.canvas.height = this.nurieCanvas.height = this.eraseCanvas.height =
+          nurieImage.naturalHeight * scale * 2
+        this.canvas.style.width = this.nurieCanvas.style.width = this.eraseCanvas.style.width =
+          this.canvas.width / 2 + 'px'
+        this.canvas.style.height = this.nurieCanvas.style.height = this.eraseCanvas.style.height =
+          this.canvas.height / 2 + 'px'
+        this.ctx.drawImage(
+          nurieImage,
+          0,
+          0,
+          this.canvas.width,
+          this.canvas.height
+        )
+      }
+      nurieImage.src = this.image
+      nurieImage.crossOrigin = 'anonymous'
+    },
     goTop() {
       this.$router.push('/')
+    },
+    dragStart() {
+      this.nurieCtx.beginPath()
+      this.eraseCtx.beginPath()
+      this.isDrag = true
+    },
+    draw(e) {
+      const x = e.layerX * 2
+      const y = e.layerY * 2
+      if (!this.isDrag) {
+        return
+      }
+      if (this.isErase) {
+        this.nurieCtx.globalCompositeOperation = 'destination-out'
+      } else {
+        this.nurieCtx.globalCompositeOperation = 'source-over'
+        this.nurieCtx.lineCap = 'round'
+        this.nurieCtx.lineJoin = 'round'
+        this.nurieCtx.lineWidth = this.lineWidth
+        this.nurieCtx.strokeStyle = this.currentColor
+        if (this.lastPosition.x === null || this.lastPosition.y === null) {
+          this.nurieCtx.moveTo(x, y)
+        } else {
+          this.nurieCtx.moveTo(this.lastPosition.x, this.lastPosition.y)
+        }
+        this.nurieCtx.lineTo(x, y)
+        this.nurieCtx.stroke()
+
+        this.lastPosition.x = x
+        this.lastPosition.y = y
+      }
+      this.ctx.drawImage(
+        this.nurieCanvas,
+        0,
+        0,
+        this.canvas.width,
+        this.canvas.height
+      )
+    },
+    dragEnd() {
+      this.nurieCtx.closePath()
+      this.eraseCtx.closePath()
+      this.isDrag = false
+      this.lastPosition.x = null
+      this.lastPosition.y = null
+      this.isErase = false
+    },
+    download() {
+      let link = document.createElement('a')
+      link.href = this.canvas.toDataURL('image/png')
+      link.download = 'canvas-' + new Date().getTime() + '.png'
+      link.click()
+    },
+    updateValue(e) {
+      this.currentColor = e.hex
+    },
+    updateLineWidth(e) {
+      this.lineWidth = e.target.value
+    },
+    deleteNurie() {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+      this.init()
     },
   },
 }
@@ -180,5 +328,34 @@ export default {
 <style>
 .gradient {
   background: linear-gradient(90deg, #ff5757 0%, #fedd58 100%);
+}
+.input-range[type='range'] {
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  height: 10px;
+  width: 100%;
+  border-radius: 6px;
+}
+.input-range[type='range']:focus,
+.input-range[type='range']:active {
+  outline: none;
+}
+.input-range[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  position: relative;
+  width: 22px;
+  height: 22px;
+  display: block;
+  background-color: #ff5757;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+}
+.input-range[type='range']:active::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px rgba(255, 87, 87, 0.6);
+  transition: 0.4s;
 }
 </style>
