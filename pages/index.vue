@@ -160,16 +160,11 @@
                 rounded-full
               "
             >
-              <svg
+              <img
+                alt="twitter"
+                src="../assets/img/upload.svg"
                 class="w-8 h-8"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z"
-                />
-              </svg>
+              />
               <span class="ml-2 text-base leading-normal">画像を選択</span>
               <input
                 id="file"
@@ -221,18 +216,11 @@
                   rounded-full
                 "
               >
-                <svg
+                <img
+                  alt="twitter"
+                  src="../assets/img/paint.svg"
                   class="w-8 h-8"
-                  fill="#DD6B1F"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
+                />
                 <div
                   class="text-orange-600 ml-2 text-base leading-normal"
                   @click="getNurie"
@@ -258,18 +246,11 @@
                   rounded-full
                 "
               >
-                <svg
+                <img
+                  alt="twitter"
+                  src="../assets/img/global.svg"
                   class="w-8 h-8"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.234-.497.623-.737 1.182-.389.907-.673 2.142-.766 3.556h3.936c-.093-1.414-.377-2.649-.766-3.556-.24-.56-.5-.948-.737-1.182C10.232 4.032 10.076 4 10 4zm3.971 5c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9h-1.946zm-2.003 2H8.032c.093 1.414.377 2.649.766 3.556.24.56.5.948.737 1.182.233.23.389.262.465.262.076 0 .232-.032.465-.262.238-.234.498-.623.737-1.182.389-.907.673-2.142.766-3.556zm1.166 4.118c.454-1.147.748-2.572.837-4.118h1.946a6.004 6.004 0 01-2.783 4.118zm-6.268 0C6.412 13.97 6.118 12.546 6.03 11H4.083a6.004 6.004 0 002.783 4.118z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
+                />
                 <div
                   class="ml-2 text-base leading-normal"
                   @click="getNuriePublic"
@@ -326,6 +307,47 @@
                 </a>
               </li>
             </ul>
+            <h3
+              class="
+                md:text-3xl
+                text-lg text-gray-800
+                font-bold
+                leading-none
+                mt-6
+                mb-3
+              "
+            >
+              塗り絵で遊ぶ
+            </h3>
+            <p v-if="!nurieImageUrl" class="text-gray-600 md:mb-8 text-base">
+              先に塗り絵を作成してください
+            </p>
+            <label
+              class="
+                cursor-pointer
+                inline-flex
+                items-center
+                bg-orange-400
+                hover:bg-orange-300
+                text-white
+                font-bold
+                py-2
+                px-4
+                rounded-full
+              "
+            >
+              <svg
+                class="w-8 h-8"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z"
+                />
+              </svg>
+              <span class="ml-2 text-base leading-normal">画像を</span>
+            </label>
           </div>
           <div class="w-full mt-3 sm:w-1/2 relative">
             <img
