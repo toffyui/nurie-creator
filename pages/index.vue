@@ -115,7 +115,7 @@
                 id="file"
                 ref="fileInput"
                 type="file"
-                accept="image/*"
+                accept=".jpg,.jpeg,.png"
                 class="hidden"
                 @change="setImage"
               />
