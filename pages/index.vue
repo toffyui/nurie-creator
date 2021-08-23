@@ -29,13 +29,13 @@
           "
         >
           <p class="tracking-loose w-full md:block hidden">
-            オリジナル塗り絵作りませんか？
+            {{ $t('オリジナル塗り絵作りませんか？') }}
           </p>
           <h2 class="my-4 md:text-5xl text-2xl font-bold leading-tight">
-            塗り絵ツクール
+            {{ $t('塗り絵ツクール') }}
           </h2>
           <p class="leading-normal md:text-2xl text-base mb-8">
-            画像をボタン一つで塗り絵にできます。
+            {{ $t('画像をボタン一つで塗り絵にできます。') }}
           </p>
           <a
             class="
@@ -59,7 +59,7 @@
             "
             href="#make"
           >
-            今すぐ作る
+            {{ $t('今すぐ作る') }}
           </a>
         </div>
         <!--Right Col-->
@@ -123,7 +123,7 @@
             text-center text-gray-800
           "
         >
-          塗り絵を作る
+          {{ $t('塗り絵を作る') }}
         </h1>
         <div class="w-full mb-4">
           <div
@@ -141,10 +141,10 @@
                 mb-3
               "
             >
-              ライブラリから画像を選択
+              {{ $t('ライブラリから画像を選択') }}
             </h3>
             <p class="text-gray-600 mb-3 text-base">
-              できる限り輪郭がはっきりしている画像を選んでください。
+              {{ $t('できる限り輪郭がはっきりしている画像を選んでください。') }}
             </p>
             <label
               class="
@@ -165,7 +165,9 @@
                 src="../assets/img/upload.svg"
                 class="w-8 h-8"
               />
-              <span class="ml-2 text-base leading-normal">画像を選択</span>
+              <span class="ml-2 text-base leading-normal">{{
+                $t('画像を選択')
+              }}</span>
               <input
                 id="file"
                 ref="fileInput"
@@ -185,20 +187,24 @@
                 mb-3
               "
             >
-              塗り絵に変換
+              {{ $t('塗り絵に変換') }}
             </h3>
             <p
               class="mt-3 text-gray-600 text-base mb-3"
               v-if="!uploadImageUrl && !nurieImageUrl"
             >
-              先に画像を選択してください
+              {{ $t('先に画像を選択してください') }}
             </p>
             <p class="mt-3 text-gray-600 text-base mb-3" v-if="nurieImageUrl">
-              塗り絵が作成されました！
+              {{ $t('塗り絵が作成されました！') }}
             </p>
             <div class="mt-3" v-if="uploadImageUrl">
               <p class="mt-3 text-gray-600 text-base mb-3">
-                塗り絵に変換して公開するを選ぶと、できた塗り絵が自動で公開されます。
+                {{
+                  $t(
+                    '塗り絵に変換して公開するを選ぶと、できた塗り絵が自動で公開されます。'
+                  )
+                }}
               </p>
               <label
                 class="
@@ -225,7 +231,7 @@
                   class="text-orange-600 ml-2 text-base leading-normal"
                   @click="getNurie"
                 >
-                  塗り絵にする
+                  {{ $t('塗り絵にする') }}
                 </div>
               </label>
               <label
@@ -255,7 +261,7 @@
                   class="ml-2 text-base leading-normal"
                   @click="getNuriePublic"
                 >
-                  塗り絵に変換して公開する
+                  {{ $t('塗り絵に変換して公開する') }}
                 </div>
               </label>
             </div>
@@ -270,10 +276,13 @@
                 mb-3
               "
             >
-              画像をシェア/保存
+              {{ $t('画像をシェア/保存') }}
             </h3>
             <p v-if="!nurieImageUrl" class="text-gray-600 md:mb-8 text-base">
-              先に塗り絵を作成してください
+              {{ $t('先に塗り絵を作成してください') }}
+            </p>
+            <p class="mt-3 text-gray-600 text-base mb-3" v-if="nurieImageUrl">
+              {{ $t('シェアや保存などしてお楽しみください。') }}
             </p>
             <ul v-show="nurieImageUrl" class="flex space-x-6 mt-3">
               <div @click="OpenTwitterModal" class="cursor-pointer">
@@ -311,10 +320,10 @@
                 mb-3
               "
             >
-              塗り絵で遊ぶ
+              {{ $t('塗り絵で遊ぶ') }}
             </h3>
             <p v-if="!nurieImageUrl" class="text-gray-600 md:mb-8 text-base">
-              先に塗り絵を作成してください
+              {{ $t('先に塗り絵を作成してください') }}
             </p>
             <label
               v-else
@@ -342,7 +351,7 @@
                 class="text-orange-600 ml-2 text-base leading-normal"
                 @click="goNuriePage"
               >
-                塗り絵で遊ぶ
+                {{ $t('塗り絵で遊ぶ') }}
               </div>
             </label>
           </div>
@@ -420,7 +429,7 @@
                 shadow-lg
               "
             >
-              ツイートする
+              {{ $t('ツイートする') }}
             </button>
           </div>
         </Modal>
@@ -472,7 +481,7 @@
                 shadow-lg
               "
             >
-              シェアする
+              {{ $t('シェアする') }}
             </button>
           </div>
         </Modal>
@@ -491,7 +500,7 @@
             text-center text-gray-800
           "
         >
-          最近投稿された塗り絵
+          {{ $t('最近投稿された塗り絵') }}
         </h1>
         <div
           class="
@@ -503,7 +512,7 @@
             text-center text-gray-800
           "
         >
-          画像クリックで塗り絵で遊べます
+          {{ $t('画像クリックで塗り絵で遊べます') }}
         </div>
         <div class="w-full mb-4">
           <div
@@ -549,7 +558,7 @@
                   shadow-lg
                 "
               >
-                {{ nurie[1] }}に投稿
+                {{ nurie[1] }}{{ $t('に投稿') }}
               </div>
             </div>
           </div>
@@ -610,7 +619,8 @@
         All Rights Reserved.
       </div>
       <div class="my-4 text-base leading-tight">
-        {{ new Date().getFullYear() }} — <strong>© 塗り絵ツクール</strong>
+        {{ new Date().getFullYear() }} —
+        <strong>© {{ $t('塗り絵ツクール') }}</strong>
       </div>
     </section>
   </div>
@@ -625,6 +635,12 @@ import postImageData from '~/assets/lib/postImageData'
 import Modal from '~/components/Share.vue'
 import Loading from '~/components/Loading.vue'
 export default Vue.extend({
+  asyncData({ app }) {
+    const locale = app.$cookies.get('locale')
+    return {
+      defaultLang: locale,
+    }
+  },
   components: {
     Modal,
     Loading,
@@ -653,15 +669,17 @@ export default Vue.extend({
       return `${process.env.BASE_URL}/nurie/${this.uuid}`
     },
     twitterURL() {
+      const shareText = this.$t('塗り絵ツクールで塗り絵を作ったよ')
+      const hash = this.$t('#塗り絵ツクール')
       return (
         `https://twitter.com/intent/tweet?url=${this.url}&text=` +
-        encodeURIComponent(
-          `塗り絵ツクールで塗り絵を作ったよ\r\n #塗り絵ツクール`
-        )
+        encodeURIComponent(shareText + `\r\n` + hash)
       )
     },
     facebookURL() {
-      return `https://www.facebook.com/sharer/sharer.php?u=${this.url}&t=塗り絵ツクールで塗り絵を作ったよ\n#塗り絵ツクール`
+      const shareText = this.$t('塗り絵ツクールで塗り絵を作ったよ')
+      const hash = this.$t('#塗り絵ツクール')
+      return `https://www.facebook.com/sharer/sharer.php?u=${this.url}&t=${shareText}\n${hash}`
     },
     paintUrl() {
       return function (url) {
@@ -677,6 +695,13 @@ export default Vue.extend({
     } catch (error) {
       console.error(error)
     }
+    if (this.defaultLang) {
+      return
+    }
+    const userLanguage = navigator.language
+    const setLang = userLanguage === 'ja' ? 'ja' : 'en'
+    this.$cookies.set('locale', setLang)
+    this.$i18n.locale = setLang
   },
   methods: {
     tweetButton() {
@@ -727,7 +752,7 @@ export default Vue.extend({
       return new Promise((resolve) => {
         const reader = new FileReader()
         if (file.size > 40 * 1000 * 1000) {
-          alert('画像が大きすぎます')
+          alert(this.$t('画像サイズが大き過ぎます。'))
           return
         }
         reader.onload = (e) => {

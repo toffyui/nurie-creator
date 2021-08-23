@@ -18,7 +18,7 @@ export default {
       {
         hid: 'og:site_name',
         property: 'og:site_name',
-        content: '塗り絵ツクール',
+        content: 'NurieMaker\r\n塗り絵ツクール',
       },
       { hid: 'og:type', property: 'og:type', content: 'article' },
       {
@@ -26,11 +26,16 @@ export default {
         property: 'og:url',
         content: 'https://nurie-maker.com',
       },
-      { hid: 'og:title', property: 'og:title', content: '塗り絵ツクール' },
+      {
+        hid: 'og:title',
+        property: 'og:title',
+        content: 'NurieMaker\r\n塗り絵ツクール',
+      },
       {
         hid: 'og:description',
         property: 'og:description',
-        content: '塗り絵をかんたんに作れるサービスです',
+        content:
+          'You can create an original coloring book easily.\r\n塗り絵をかんたんに作れるサービスです',
       },
       {
         hid: 'og:image',
@@ -59,7 +64,10 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: '@/plugins/vueColor.js', mode: 'client' }],
+  plugins: [
+    { src: '@/plugins/vueColor.js', mode: 'client' },
+    '@/plugins/i18n.js',
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -78,7 +86,12 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios', '@nuxtjs/dotenv', '@nuxtjs/proxy'],
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/dotenv',
+    '@nuxtjs/proxy',
+    ['cookie-universal-nuxt', { parseJSON: false }],
+  ],
   proxy: {
     '/Moderation/': {
       target: AWS_IMAGE_URL,
