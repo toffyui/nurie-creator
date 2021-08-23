@@ -72,13 +72,21 @@
       </div>
       <div class="flex md:flex-row flex-col justify-center p-3 gap-5">
         <div class="w-full h-auto md:w-1/2 lg:w-1/3">
-          <canvas
-            ref="canvas"
-            @mousedown="dragStart"
-            @mouseup="dragEnd"
-            @mouseout="dragEnd"
-            @mousemove="draw"
-          ></canvas>
+          <div class="relative">
+            <Loading class="absolute overlay" v-if="overlay" />
+            <canvas
+              ref="canvas"
+              height="300"
+              @mousedown.prevent="dragStart"
+              @touchstart.prevent="dragStart"
+              @touchend.prevent="dragEnd"
+              @mouseup.prevent="dragEnd"
+              @mouseout.prevent="dragEnd"
+              @mousemove.prevent="draw"
+              @touchmove.prevent="spDraw"
+            >
+            </canvas>
+          </div>
           <div ref="wrapper" class="flex items-center" @click="goTop">
             <div
               class="
@@ -230,6 +238,7 @@
   </div>
 </template>
 <script>
+import Loading from '~/components/Loading.vue'
 export default {
   async asyncData({ params }) {
     return {
@@ -237,6 +246,9 @@ export default {
       image: `${process.env.BASE_URL}/Moderation/${params.id}.jpg`,
       twitterImage: `${process.env.AWS_IMAGE_URL}/Moderation/${params.id}.jpg`,
     }
+  },
+  components: {
+    Loading,
   },
   head() {
     return {
@@ -282,43 +294,43 @@ export default {
       ctx: null,
       colors: '#000000',
       noPicture: require('@/assets/img/noPic.png'),
+      overlay: true,
     }
   },
   mounted() {
     this.init()
   },
   methods: {
-    init() {
+    async init() {
       this.canvas = this.$refs.canvas
       this.ctx = this.canvas.getContext('2d')
       this.nurieCanvas = document.createElement('canvas')
       this.nurieCtx = this.nurieCanvas.getContext('2d')
       const wrapper = this.$refs.wrapper
-      const nurieImage = new Image()
-      nurieImage.setAttribute('crossorigin', 'anonymous')
-      nurieImage.onload = () => {
+      await this.loadImage(this.image).then((res) => {
         this.ctx.scale(2, 2)
-        const scale = wrapper.clientWidth / nurieImage.naturalWidth
+        const scale = wrapper.clientWidth / res.naturalWidth
         this.canvas.width = this.nurieCanvas.width =
-          nurieImage.naturalWidth * scale * 2
+          res.naturalWidth * scale * 2
         this.canvas.height = this.nurieCanvas.height =
-          nurieImage.naturalHeight * scale * 2
+          res.naturalHeight * scale * 2
         this.canvas.style.width = this.nurieCanvas.style.width =
           this.canvas.width / 2 + 'px'
         this.canvas.style.height = this.nurieCanvas.style.height =
           this.canvas.height / 2 + 'px'
-        this.ctx.drawImage(
-          nurieImage,
-          0,
-          0,
-          this.canvas.width,
-          this.canvas.height
-        )
-      }
-      nurieImage.src = this.image
-      nurieImage.onerror = () => {
-        nurieImage.src = this.noPicture
-      }
+        this.ctx.drawImage(res, 0, 0, this.canvas.width, this.canvas.height)
+      })
+      this.overlay = false
+    },
+    loadImage(src) {
+      return new Promise((resolve) => {
+        const img = new Image()
+        img.src = src
+        img.onload = () => resolve(img)
+        img.onerror = () => {
+          img.src = this.noPicture
+        }
+      })
     },
     goTop() {
       this.$router.push('/')
@@ -328,8 +340,8 @@ export default {
       this.isDrag = true
     },
     draw(e) {
-      const x = e.layerX * 2
-      const y = e.layerY * 2
+      const x = (e.clientX - this.canvas.getBoundingClientRect().left) * 2
+      const y = (e.clientY - this.canvas.getBoundingClientRect().top) * 2
       if (!this.isDrag) {
         return
       }
@@ -353,6 +365,11 @@ export default {
         this.canvas.width,
         this.canvas.height
       )
+    },
+    spDraw(e) {
+      if (e.changedTouches.length == 1) {
+        draw(e.changedTouches[0])
+      }
     },
     dragEnd() {
       this.nurieCtx.closePath()
@@ -427,5 +444,12 @@ export default {
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
   -webkit-transform: translateY(-50%) translateX(-50%);
+}
+.overlay {
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  margin: auto;
 }
 </style>

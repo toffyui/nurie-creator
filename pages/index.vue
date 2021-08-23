@@ -709,8 +709,8 @@ export default Vue.extend({
       this.overlay = true
       this.uuid = this.generateUuid()
       await postImageData(this.uuid, this.nurieData).then(() => {
-        window.open(`/nurie/${this.uuid}`, '_blank')
         this.overlay = false
+        this.$router.push(`/nurie/${this.uuid}`)
       })
     },
     goPaintPage(paint) {
