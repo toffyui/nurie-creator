@@ -368,7 +368,7 @@ export default {
     },
     spDraw(e) {
       if (e.changedTouches.length == 1) {
-        draw(e.changedTouches[0])
+        this.draw(e.changedTouches[0])
       }
     },
     dragEnd() {
