@@ -72,13 +72,21 @@
       </div>
       <div class="flex md:flex-row flex-col justify-center p-3 gap-5">
         <div class="w-full h-auto md:w-1/2 lg:w-1/3">
-          <canvas
-            ref="canvas"
-            @mousedown="dragStart"
-            @mouseup="dragEnd"
-            @mouseout="dragEnd"
-            @mousemove="draw"
-          ></canvas>
+          <div class="relative">
+            <Loading class="absolute overlay" v-if="overlay" />
+            <canvas
+              ref="canvas"
+              height="300"
+              @mousedown.prevent="dragStart"
+              @touchstart.prevent="dragStart"
+              @touchend.prevent="dragEnd"
+              @mouseup.prevent="dragEnd"
+              @mouseout.prevent="dragEnd"
+              @mousemove.prevent="draw"
+              @touchmove.prevent="spDraw"
+            >
+            </canvas>
+          </div>
           <div ref="wrapper" class="flex items-center" @click="goTop">
             <div
               class="
@@ -230,6 +238,7 @@
   </div>
 </template>
 <script>
+import Loading from '~/components/Loading.vue'
 export default {
   async asyncData({ params }) {
     return {
@@ -237,6 +246,9 @@ export default {
       image: `${process.env.BASE_URL}/Moderation/${params.id}.jpg`,
       twitterImage: `${process.env.AWS_IMAGE_URL}/Moderation/${params.id}.jpg`,
     }
+  },
+  components: {
+    Loading,
   },
   head() {
     return {
@@ -282,6 +294,7 @@ export default {
       ctx: null,
       colors: '#000000',
       noPicture: require('@/assets/img/noPic.png'),
+      overlay: true,
     }
   },
   mounted() {
@@ -314,6 +327,7 @@ export default {
           this.canvas.width,
           this.canvas.height
         )
+        this.overlay = false
       }
       nurieImage.src = this.image
       nurieImage.onerror = () => {
@@ -353,6 +367,10 @@ export default {
         this.canvas.width,
         this.canvas.height
       )
+    },
+    spDraw(e) {
+      for (let i = 0; i < e.changedTouches.length; i++)
+        draw(e.changedTouches[i])
     },
     dragEnd() {
       this.nurieCtx.closePath()
@@ -427,5 +445,12 @@ export default {
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
   -webkit-transform: translateY(-50%) translateX(-50%);
+}
+.overlay {
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  margin: auto;
 }
 </style>
