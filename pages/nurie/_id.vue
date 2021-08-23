@@ -301,37 +301,36 @@ export default {
     this.init()
   },
   methods: {
-    init() {
+    async init() {
       this.canvas = this.$refs.canvas
       this.ctx = this.canvas.getContext('2d')
       this.nurieCanvas = document.createElement('canvas')
       this.nurieCtx = this.nurieCanvas.getContext('2d')
       const wrapper = this.$refs.wrapper
-      const nurieImage = new Image()
-      nurieImage.onload = () => {
+      await this.loadImage(this.image).then((res) => {
         this.ctx.scale(2, 2)
-        const scale = wrapper.clientWidth / nurieImage.naturalWidth
+        const scale = wrapper.clientWidth / res.naturalWidth
         this.canvas.width = this.nurieCanvas.width =
-          nurieImage.naturalWidth * scale * 2
+          res.naturalWidth * scale * 2
         this.canvas.height = this.nurieCanvas.height =
-          nurieImage.naturalHeight * scale * 2
+          res.naturalHeight * scale * 2
         this.canvas.style.width = this.nurieCanvas.style.width =
           this.canvas.width / 2 + 'px'
         this.canvas.style.height = this.nurieCanvas.style.height =
           this.canvas.height / 2 + 'px'
-        this.ctx.drawImage(
-          nurieImage,
-          0,
-          0,
-          this.canvas.width,
-          this.canvas.height
-        )
-      }
+        this.ctx.drawImage(res, 0, 0, this.canvas.width, this.canvas.height)
+      })
       this.overlay = false
-      nurieImage.src = this.image
-      nurieImage.onerror = () => {
-        nurieImage.src = this.noPicture
-      }
+    },
+    loadImage(src) {
+      return new Promise((resolve) => {
+        const img = new Image()
+        img.src = src
+        img.onload = () => resolve(img)
+        img.onerror = () => {
+          img.src = this.noPicture
+        }
+      })
     },
     goTop() {
       this.$router.push('/')
@@ -341,8 +340,8 @@ export default {
       this.isDrag = true
     },
     draw(e) {
-      const x = e.layerX * 2
-      const y = e.layerY * 2
+      const x = (e.clientX - this.canvas.getBoundingClientRect().left) * 2
+      const y = (e.clientY - this.canvas.getBoundingClientRect().top) * 2
       if (!this.isDrag) {
         return
       }
@@ -368,8 +367,9 @@ export default {
       )
     },
     spDraw(e) {
-      for (let i = 0; i < e.changedTouches.length; i++)
-        draw(e.changedTouches[i])
+      if (e.changedTouches.length == 1) {
+        draw(e.changedTouches[0])
+      }
     },
     dragEnd() {
       this.nurieCtx.closePath()
