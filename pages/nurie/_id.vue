@@ -74,13 +74,13 @@
         <div class="w-full h-auto md:w-1/2 lg:w-1/3">
           <canvas
             ref="canvas"
-            @mousedown="dragStart"
-            @touchstart="dragStart"
-            @touchend="dragEnd"
-            @mouseup="dragEnd"
-            @mouseout="dragEnd"
-            @mousemove="draw"
-            @touchmove="spDraw"
+            @mousedown.prevent="dragStart"
+            @touchstart.prevent="dragStart"
+            @touchend.prevent="dragEnd"
+            @mouseup.prevent="dragEnd"
+            @mouseout.prevent="dragEnd"
+            @mousemove.prevent="draw"
+            @touchmove.prevent="spDraw"
           ></canvas>
           <div ref="wrapper" class="flex items-center" @click="goTop">
             <div
@@ -325,13 +325,11 @@ export default {
     goTop() {
       this.$router.push('/')
     },
-    dragStart(e) {
-      e.preventDefault()
+    dragStart() {
       this.nurieCtx.beginPath()
       this.isDrag = true
     },
     draw(e) {
-      e.preventDefault()
       const x = e.layerX * 2
       const y = e.layerY * 2
       if (!this.isDrag) {
@@ -359,12 +357,10 @@ export default {
       )
     },
     spDraw(e) {
-      e.preventDefault()
       for (let i = 0; i < e.changedTouches.length; i++)
         draw(e.changedTouches[i])
     },
-    dragEnd(e) {
-      e.preventDefault()
+    dragEnd() {
       this.nurieCtx.closePath()
       this.isDrag = false
       this.lastPosition.x = null
