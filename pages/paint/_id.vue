@@ -8,7 +8,7 @@
       <div>
         <div class="container mx-auto text-center pt-4 pb-12">
           <h2 class="my-4 md:text-5xl text-2xl font-bold leading-tight">
-            塗り絵ツクール
+            {{ $t('塗り絵ツクール') }}
           </h2>
         </div>
         <div class="relative -mt-12 lg:-mt-24">
@@ -63,7 +63,7 @@
           text-center text-gray-800
         "
       >
-        作成された塗り絵
+        {{ $t('作成された塗り絵') }}
       </h1>
       <div class="w-full mb-4">
         <div
@@ -102,7 +102,7 @@
                 shadow-lg
               "
             >
-              塗り絵ツクールで塗り絵を作る
+              {{ $t('塗り絵ツクールで塗り絵を作る') }}
             </div>
           </div>
         </div>
@@ -112,7 +112,7 @@
           </client-only>
           <div class="flex items-center justify-center py-4">
             <div>
-              <p>線の太さ</p>
+              <p>{{ $t('線の太さ') }}</p>
               <div class="circle">
                 <div
                   class="lineWidth"
@@ -155,7 +155,7 @@
                 shadow-lg
               "
             >
-              やりなおす
+              {{ $t('やりなおす') }}
             </button>
             <button
               @click="download"
@@ -171,7 +171,7 @@
                 shadow-lg
               "
             >
-              ダウンロード
+              {{ $t('ダウンロード') }}
             </button>
           </div>
         </div>
@@ -231,7 +231,8 @@
           All Rights Reserved.
         </div>
         <div class="my-4 text-base leading-tight">
-          {{ new Date().getFullYear() }} — <strong>© 塗り絵ツクール</strong>
+          {{ new Date().getFullYear() }} —
+          <strong>© {{ $t('塗り絵ツクール') }}</strong>
         </div>
       </section>
     </div>
@@ -240,11 +241,13 @@
 <script>
 import Loading from '~/components/Loading.vue'
 export default {
-  async asyncData({ params }) {
+  async asyncData({ app, params }) {
+    const locale = app.$cookies.get('locale')
     return {
       url: `${process.env.BASE_URL}/paint/${params.id}`,
       image: `${process.env.BASE_URL}/Moderation/${params.id}.jpg`,
       twitterImage: `${process.env.AWS_IMAGE_URL}/Moderation/${params.id}.jpg`,
+      defaultLang: locale,
     }
   },
   components: {
@@ -252,23 +255,23 @@ export default {
   },
   head() {
     return {
-      title: 'オリジナル塗り絵を作ろう',
+      title: this.$t('オリジナル塗り絵を作ろう'),
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: 'オリジナル塗り絵を作ろう',
+          content: this.$t('オリジナル塗り絵を作ろう'),
         },
         { hid: 'og:type', property: 'og:type', content: 'article' },
         {
           hid: 'og:title',
           property: 'og:title',
-          content: '塗り絵ツクール',
+          content: this.$t('塗り絵ツクール'),
         },
         {
           hid: 'og:description',
           property: 'og:description',
-          content: 'オリジナル塗り絵を作ろう',
+          content: this.$t('オリジナル塗り絵を作ろう'),
         },
         { hid: 'og:url', property: 'og:url', content: this.url },
         { hid: 'og:image', property: 'og:image', content: this.image },
@@ -299,6 +302,13 @@ export default {
   },
   mounted() {
     this.init()
+    if (this.defaultLang) {
+      return
+    }
+    const userLanguage = navigator.language
+    const setLang = userLanguage === 'ja' ? 'ja' : 'en'
+    this.$cookies.set('locale', setLang)
+    this.$i18n.locale = setLang
   },
   methods: {
     async init() {
