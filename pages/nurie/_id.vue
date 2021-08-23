@@ -289,18 +289,6 @@ export default {
   },
   mounted() {
     this.init()
-    window.requestAnimFrame = (function (callback) {
-      return (
-        window.requestAnimationFrame ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        window.oRequestAnimationFrame ||
-        window.msRequestAnimaitonFrame ||
-        function (callback) {
-          window.setTimeout(callback, 1000 / 60)
-        }
-      )
-    })()
   },
   methods: {
     init() {
@@ -340,14 +328,6 @@ export default {
     dragStart() {
       this.nurieCtx.beginPath()
       this.isDrag = true
-    },
-    spRenderCanvas() {
-      if (this.isDrag) {
-        ctx.moveTo(lastPos.x, lastPos.y)
-        ctx.lineTo(mousePos.x, mousePos.y)
-        ctx.stroke()
-        lastPos = mousePos
-      }
     },
     draw(e) {
       const x = e.layerX * 2
