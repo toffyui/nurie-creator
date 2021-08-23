@@ -1,22 +1,17 @@
-# 塗り絵ツクール
+# Nurie Maker
 
-## Build Setup
+![image](https://user-images.githubusercontent.com/43722788/130493878-166a4259-ca41-4f1f-a311-d34dd8c66112.png)
 
-```bash
-# install dependencies
-$ yarn install
 
-# serve with hot reload at localhost:3000
-※.envにAPIのエンドポイントが必要です（非公開）
-*エンドポイントを指定せずに画像をpostすると永遠にローディングが回り続けてしまいますので注意..
-$ yarn dev
+## Sample
 
-# build for production and launch server
-$ yarn build
-$ yarn start
+![Angry](https://user-images.githubusercontent.com/43722788/130494245-93d1e39c-6c6f-4a52-bdf8-91a93956396b.jpg)
 
-# generate static project
-$ yarn generate
-```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+## Usage
+
+** If you want to use this app in your develop enviroment, you need to get an endpoint for API.
+
+Visit https://nurie-maker.com/, then upload an image whatever you want to create an original Coloring.
+
+Enjoy!
