@@ -1,5 +1,5 @@
 import axios from 'axios'
-const apiUrl = process.env.API_BASE_URL
+const apiUrl = process.env.API_BASE_URL + '/analysis'
 
 export default async function getNurieImage(file, flag) {
   let imageBase64 = file
