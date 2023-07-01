@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { API_BASE_URL, AWS_IMAGE_URL, BASE_URL } = process.env
+const { API_BASE_URL, AWS_IMAGE_URL, BASE_URL, API_OGP_BASE_URL } = process.env
 export default {
   head: {
     title: '塗り絵ツクール',
