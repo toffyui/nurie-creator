@@ -77,6 +77,7 @@ export default {
     API_BASE_URL,
     AWS_IMAGE_URL,
     BASE_URL,
+    API_OGP_BASE_URL,
   },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
