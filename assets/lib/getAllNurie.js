@@ -1,5 +1,5 @@
 import axios from 'axios'
-const apiUrl = process.env.API_BASE_URL + '/image'
+const apiUrl = process.env.API_BASE_URL + '/getnurie'
 
 export default async function getAllNurie(type) {
   try {
