@@ -31,7 +31,6 @@ export default {
       uuid: params.id,
       url: `${process.env.BASE_URL}/ogp/${params.id}`,
       image: `${process.env.AWS_IMAGE_URL}/ogpimg/${params.id}.jpg`,
-      twitterImage: `${process.env.AWS_IMAGE_URL}/ogpimg/${params.id}.jpg`,
     }
   },
   head() {

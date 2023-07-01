@@ -245,8 +245,7 @@ export default {
     const locale = app.$cookies.get('locale')
     return {
       url: `${process.env.BASE_URL}/paint/${params.id}`,
-      image: `${process.env.BASE_URL}/Moderation/${params.id}.jpg`,
-      twitterImage: `${process.env.AWS_IMAGE_URL}/Moderation/${params.id}.jpg`,
+      image: `${process.env.AWS_IMAGE_URL}/Moderation/${params.id}.jpg`,
       defaultLang: locale,
     }
   },
@@ -277,7 +276,7 @@ export default {
         { hid: 'og:image', property: 'og:image', content: this.image },
         {
           name: 'twitter:image',
-          content: this.twitterImage,
+          content: this.image,
         },
       ],
     }

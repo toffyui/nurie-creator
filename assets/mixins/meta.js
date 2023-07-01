@@ -19,7 +19,7 @@ export default {
         { hid: 'og:image', property: 'og:image', content: this.meta.image },
         {
           name: 'twitter:image',
-          content: this.meta.twitterImage,
+          content: this.meta.image,
         },
       ],
     }
