@@ -53,8 +53,9 @@ export default {
       {
         rel: 'icon',
         type: 'image/x-icon',
-        href: 'https://yuilog.xyz/wp-content/uploads/2021/03/favicon-32x32.png',
+        href: '/favicon-32x32.png',
       },
+      { rel: 'icon', type: 'image/png', href: '/favicon-32x32.png' },
     ],
   },
 
