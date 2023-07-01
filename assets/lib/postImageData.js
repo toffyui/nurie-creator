@@ -1,5 +1,5 @@
 import axios from 'axios'
-const apiUrl = process.env.API_BASE_URL + '/postogpimg'
+const apiUrl = process.env.API_OGP_BASE_URL + '/postogpimg'
 
 export default async function postImageData(uuid, url) {
   try {
