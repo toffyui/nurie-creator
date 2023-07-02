@@ -1,5 +1,11 @@
 require('dotenv').config()
-const { API_BASE_URL, AWS_IMAGE_URL, BASE_URL, API_OGP_BASE_URL } = process.env
+const {
+  API_BASE_URL,
+  AWS_IMAGE_URL,
+  BASE_URL,
+  API_OGP_BASE_URL,
+  AWS_IMAGE_NURIE_URL,
+} = process.env
 export default {
   head: {
     title: '塗り絵ツクール',
@@ -53,9 +59,13 @@ export default {
       {
         rel: 'icon',
         type: 'image/x-icon',
-        href: '/favicon-32x32.png',
+        href: `${AWS_IMAGE_NURIE_URL}/favicon.ico`,
       },
-      { rel: 'icon', type: 'image/png', href: '/favicon-32x32.png' },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        href: `${AWS_IMAGE_NURIE_URL}/favicon.ico`,
+      },
     ],
   },
 
@@ -78,6 +88,7 @@ export default {
     AWS_IMAGE_URL,
     BASE_URL,
     API_OGP_BASE_URL,
+    AWS_IMAGE_NURIE_URL,
   },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
@@ -96,7 +107,7 @@ export default {
   ],
   proxy: {
     '/Moderation/': {
-      target: AWS_IMAGE_URL,
+      target: AWS_IMAGE_NURIE_URL,
       changeOrigin: true,
       secure: false,
     },
