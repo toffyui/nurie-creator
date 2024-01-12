@@ -78,6 +78,7 @@ export default {
   plugins: [
     { src: '@/plugins/vueColor.js', mode: 'client' },
     '@/plugins/i18n.js',
+    '@/plugins/analytics.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
