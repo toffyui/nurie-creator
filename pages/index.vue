@@ -613,8 +613,8 @@
       "
     >
       <div class="my-4 text-base leading-tight">
-        <a href="https://twitter.com/yui_active" class="underline"
-          ><strong>Yui</strong></a
+        <a href="https://x.com/toffy_dev" class="underline"
+          ><strong>Toffy</strong></a
         >
         All Rights Reserved.
       </div>
