@@ -67,6 +67,13 @@ export default {
         href: `${AWS_IMAGE_NURIE_URL}/favicon.ico`,
       },
     ],
+    script: [
+      {
+        src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2107585083110270',
+        async: true,
+        crossorigin: 'anonymous',
+      },
+    ],
   },
 
   target: 'static',
