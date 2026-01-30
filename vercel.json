@@ -1,6 +1,11 @@
 {
   "version": 2,
   "public": true,
+  "build": {
+    "env": {
+      "NODE_OPTIONS": "--openssl-legacy-provider"
+    }
+  },
   "builds": [
     {
       "src": "nuxt.config.js",
