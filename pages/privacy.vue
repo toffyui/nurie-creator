@@ -1,25 +1,18 @@
 <template>
-  <main>
-    <section class="gradient text-white pt-10 pb-20 md:pb-32">
-      <div class="container mx-auto px-5 md:px-20">
-        <h1 class="text-3xl md:text-5xl font-bold leading-tight">
-          {{ $t('プライバシーポリシー') }}
-        </h1>
-        <p class="mt-3 text-sm opacity-90">
-          {{ $t('最終更新日') }}: {{ lastUpdated }}
-        </p>
-      </div>
-    </section>
-    <WaveDown />
-
-    <article class="bg-orange-200">
-      <div
+  <div>
+    <PageHeader />
+    <div class="bg-orange-200">
+      <SectionTitle :text="$t('プライバシーポリシー')" />
+      <p class="text-center text-sm text-gray-700 -mt-2 mb-6">
+        {{ $t('最終更新日') }}: {{ lastUpdated }}
+      </p>
+      <article
         class="
           container
           mx-auto
           px-5
           md:px-20
-          py-10
+          pb-12
           text-gray-800
           leading-relaxed
           max-w-4xl
@@ -61,26 +54,9 @@
           7. {{ $t('ポリシーの変更') }}
         </h2>
         <p class="mb-4">{{ $t('ポリシー変更本文') }}</p>
-
-        <div class="mt-10">
-          <nuxt-link
-            to="/"
-            class="
-              inline-block
-              bg-orange-400
-              hover:bg-orange-300
-              text-white
-              font-bold
-              rounded-full
-              py-2
-              px-6
-            "
-            >← {{ $t('ホーム') }}</nuxt-link
-          >
-        </div>
-      </div>
-    </article>
-  </main>
+      </article>
+    </div>
+  </div>
 </template>
 
 <script>

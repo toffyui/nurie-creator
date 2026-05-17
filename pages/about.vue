@@ -1,22 +1,16 @@
 <template>
-  <main>
-    <section class="gradient text-white pt-10 pb-20 md:pb-32">
-      <div class="container mx-auto px-5 md:px-20">
-        <h1 class="text-3xl md:text-5xl font-bold leading-tight">
-          {{ $t('このサイトについて') }}
-        </h1>
-      </div>
-    </section>
-    <WaveDown />
-
-    <article class="bg-orange-200">
-      <div
+  <div>
+    <PageHeader />
+    <div class="bg-orange-200">
+      <SectionTitle :text="$t('このサイトについて')" />
+      <article
         class="
           container
           mx-auto
           px-5
           md:px-20
-          py-10
+          pb-12
+          pt-4
           text-gray-800
           leading-relaxed
           max-w-4xl
@@ -27,24 +21,33 @@
         <h2 class="text-2xl md:text-3xl font-bold mt-8 mb-4">
           {{ $t('サイトの特徴') }}
         </h2>
-        <div class="grid md:grid-cols-3 gap-6">
-          <div class="p-5 bg-orange-50 rounded-lg shadow">
-            <h3 class="text-lg font-bold mb-2 text-orange-700">
-              {{ $t('特徴1タイトル') }}
-            </h3>
-            <p class="text-sm">{{ $t('特徴1本文') }}</p>
-          </div>
-          <div class="p-5 bg-orange-50 rounded-lg shadow">
-            <h3 class="text-lg font-bold mb-2 text-orange-700">
-              {{ $t('特徴2タイトル') }}
-            </h3>
-            <p class="text-sm">{{ $t('特徴2本文') }}</p>
-          </div>
-          <div class="p-5 bg-orange-50 rounded-lg shadow">
-            <h3 class="text-lg font-bold mb-2 text-orange-700">
-              {{ $t('特徴3タイトル') }}
-            </h3>
-            <p class="text-sm">{{ $t('特徴3本文') }}</p>
+        <div class="flex flex-wrap -mx-3">
+          <div
+            v-for="feature in features"
+            :key="feature.title"
+            class="w-full md:w-1/3 p-3 flex flex-col"
+          >
+            <div
+              class="
+                h-full
+                bg-white
+                overflow-hidden
+                rounded-lg
+                shadow-lg
+                transform
+                transition
+                hover:scale-105
+                duration-300
+                ease-in-out
+              "
+            >
+              <div class="p-6">
+                <h3 class="text-lg font-bold mb-2 text-orange-700">
+                  {{ $t(feature.title) }}
+                </h3>
+                <p class="text-sm">{{ $t(feature.body) }}</p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -57,44 +60,22 @@
           {{ $t('運営者情報') }}
         </h2>
         <p class="mb-6">{{ $t('運営者情報本文') }}</p>
-
-        <div class="mt-10 flex flex-wrap gap-3">
-          <nuxt-link
-            to="/"
-            class="
-              inline-block
-              bg-orange-400
-              hover:bg-orange-300
-              text-white
-              font-bold
-              rounded-full
-              py-2
-              px-6
-            "
-            >← {{ $t('ホーム') }}</nuxt-link
-          >
-          <nuxt-link
-            to="/contact"
-            class="
-              inline-block
-              border-2 border-orange-600
-              text-orange-600
-              hover:bg-orange-50
-              font-bold
-              rounded-full
-              py-2
-              px-6
-            "
-            >{{ $t('お問い合わせ') }}</nuxt-link
-          >
-        </div>
-      </div>
-    </article>
-  </main>
+      </article>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      features: [
+        { title: '特徴1タイトル', body: '特徴1本文' },
+        { title: '特徴2タイトル', body: '特徴2本文' },
+        { title: '特徴3タイトル', body: '特徴3本文' },
+      ],
+    }
+  },
   head() {
     return {
       title: `${this.$t('このサイトについて')} | ${this.$t('塗り絵ツクール')}`,

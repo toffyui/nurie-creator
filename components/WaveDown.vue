@@ -28,7 +28,7 @@
         </g>
         <g
           transform="translate(-4.000000, 76.000000)"
-          fill="#FFFFFF"
+          :fill="color"
           fill-rule="nonzero"
         >
           <path
@@ -43,5 +43,16 @@
 <script>
 export default {
   name: 'WaveDown',
+  props: {
+    /**
+     * Color of the bottom solid wave. Should match the background color of
+     * the section immediately below this wave (e.g. '#FFFFFF' for white,
+     * '#FFEBC8' for the orange-200 cream section).
+     */
+    color: {
+      type: String,
+      default: '#FFFFFF',
+    },
+  },
 }
 </script>
