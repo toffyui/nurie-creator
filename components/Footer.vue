@@ -1,33 +1,39 @@
 <template>
-  <footer class="bg-gray-800 text-gray-200 text-sm">
+  <footer class="container mx-auto px-5 md:px-20 py-3 md:py-6">
     <div
-      class="container mx-auto px-5 md:px-20 py-8 flex flex-col md:flex-row md:justify-between items-center gap-4"
+      class="md:flex md:justify-between md:items-center text-base leading-tight"
     >
-      <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
-        <nuxt-link to="/" class="hover:underline">{{ $t('ホーム') }}</nuxt-link>
-        <nuxt-link to="/about" class="hover:underline">{{
-          $t('このサイトについて')
-        }}</nuxt-link>
-        <nuxt-link to="/privacy" class="hover:underline">{{
-          $t('プライバシーポリシー')
-        }}</nuxt-link>
-        <nuxt-link to="/terms" class="hover:underline">{{
-          $t('利用規約')
-        }}</nuxt-link>
-        <nuxt-link to="/contact" class="hover:underline">{{
-          $t('お問い合わせ')
-        }}</nuxt-link>
-      </div>
-      <div class="text-xs text-gray-400">
-        © {{ new Date().getFullYear() }}
-        <a
-          href="https://x.com/toffy_dev"
-          target="_blank"
-          rel="noopener"
-          class="underline hover:text-white"
-          >Toffy</a
+      <div class="my-4">
+        <a href="https://x.com/toffy_dev" class="underline"
+          ><strong>Toffy</strong></a
         >
-        — {{ $t('塗り絵ツクール') }}
+        All Rights Reserved.
+      </div>
+      <ul class="my-4 flex flex-wrap md:justify-center gap-x-4 gap-y-2 text-sm">
+        <li>
+          <nuxt-link to="/about" class="hover:underline">{{
+            $t('このサイトについて')
+          }}</nuxt-link>
+        </li>
+        <li>
+          <nuxt-link to="/privacy" class="hover:underline">{{
+            $t('プライバシーポリシー')
+          }}</nuxt-link>
+        </li>
+        <li>
+          <nuxt-link to="/terms" class="hover:underline">{{
+            $t('利用規約')
+          }}</nuxt-link>
+        </li>
+        <li>
+          <nuxt-link to="/contact" class="hover:underline">{{
+            $t('お問い合わせ')
+          }}</nuxt-link>
+        </li>
+      </ul>
+      <div class="my-4">
+        {{ new Date().getFullYear() }} —
+        <strong>© {{ $t('塗り絵ツクール') }}</strong>
       </div>
     </div>
   </footer>

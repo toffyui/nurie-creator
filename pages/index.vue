@@ -601,28 +601,6 @@
         </g>
       </g>
     </svg>
-    <section
-      class="
-        md:flex md:justify-between
-        container
-        mx-auto
-        py-3
-        md:py-6
-        px-5
-        md:px-20
-      "
-    >
-      <div class="my-4 text-base leading-tight">
-        <a href="https://x.com/toffy_dev" class="underline"
-          ><strong>Toffy</strong></a
-        >
-        All Rights Reserved.
-      </div>
-      <div class="my-4 text-base leading-tight">
-        {{ new Date().getFullYear() }} —
-        <strong>© {{ $t('塗り絵ツクール') }}</strong>
-      </div>
-    </section>
   </div>
 </template>
 
