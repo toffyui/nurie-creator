@@ -1,3 +1,7 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.gradient {
+  background: linear-gradient(90deg, #ff5757 0%, #fedd58 100%);
+}
