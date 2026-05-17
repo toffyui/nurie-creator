@@ -1,9 +1,18 @@
 <template>
-  <footer class="container mx-auto px-5 md:px-20 py-3 md:py-6">
-    <div
-      class="md:flex md:justify-between md:items-center text-base leading-tight"
+  <div class="gradient text-white">
+    <WaveUp color="#FFEBC8" />
+    <footer
+      class="
+        md:flex md:justify-between md:items-center
+        container
+        mx-auto
+        py-3
+        md:py-6
+        px-5
+        md:px-20
+      "
     >
-      <div class="my-4">
+      <div class="my-4 text-base leading-tight">
         <a href="https://x.com/toffy_dev" class="underline"
           ><strong>Toffy</strong></a
         >
@@ -31,12 +40,12 @@
           }}</nuxt-link>
         </li>
       </ul>
-      <div class="my-4">
+      <div class="my-4 text-base leading-tight">
         {{ new Date().getFullYear() }} —
         <strong>© {{ $t('塗り絵ツクール') }}</strong>
       </div>
-    </div>
-  </footer>
+    </footer>
+  </div>
 </template>
 
 <script>
